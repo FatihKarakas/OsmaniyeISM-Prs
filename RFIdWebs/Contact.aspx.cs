@@ -106,7 +106,7 @@ public partial class Contact : Page
                 var GirisSaatk = new TimeSpan(09,00,10);
                 var tarihi = Convert.ToDateTime(data["Tarih"].ToString());
                 var ktarihi = new DateTime(2022,05,24);
-                if (tarihi > ktarihi & GirisSaat > GirisSaatk)
+                if (tarihi > ktarihi)
                 {
                     var Kisi = dc.personel.Where(x => x.kartno == UserIdsi).FirstOrDefault();
                     if (Kisi == null)

@@ -30,12 +30,19 @@ public partial class OzelRapor : System.Web.UI.Page
         Listele.DataBind();
         DB2.SelectCommand = null;
         DB2.SelectParameters.Clear();
-        DateTime BasTarihi = Convert.ToDateTime(BasTarih.Text);
-        DateTime BitTarihi = Convert.ToDateTime(BitTarih.Text);
-        if (BasTarih.Text=="" || BitTarih.Text == "" || BasTarihi > BitTarihi)
+        if (BasTarih.Text == "" || BitTarih.Text == "")
         {
             HataMsj.Visible = true;
-            msj.InnerText = "Lüten iki tarih aralığı seçiniz ayrıca başlangıç tarihi mutlaka bitiş tarihinden küçük olmalıdır.";
+            msj.InnerText = "Lüten iki tarih aralığı seçiniz.";
+            return;
+        }
+        DateTime BasTarihi = Convert.ToDateTime(BasTarih.Text);
+        DateTime BitTarihi = Convert.ToDateTime(BitTarih.Text);
+        if (BasTarihi > BitTarihi)
+        {
+            HataMsj.Visible = true;
+            msj.InnerText = "Başlangıç tarihi mutlaka Bitiş tarihinden küçük olmalıdır.";
+            BasTarih.Focus();
             return;
         }
         else

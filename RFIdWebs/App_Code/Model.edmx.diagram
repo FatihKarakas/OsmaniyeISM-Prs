@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="76efa906f87b48bd948995dc69ef4765" Name="Diagram1">
+        <EntityTypeShape EntityType="DataModel.birim" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataModel.il" Width="1.5" PointX="2.875" PointY="2.75" />
+        <EntityTypeShape EntityType="DataModel.ilce" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataModel.ilsaglikpersoneli" Width="1.5" PointX="4.75" PointY="2.75" />
+        <EntityTypeShape EntityType="DataModel.Personeller" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataModel.TestGirisCikis" Width="1.5" PointX="9.25" PointY="2.5" />
+        <EntityTypeShape EntityType="DataModel.Servis" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataModel.Terminal" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DataModel.pts_giriscikis" Width="1.5" PointX="3.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DataModel.personel" Width="1.5" PointX="5.375" PointY="5.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

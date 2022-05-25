@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="birim">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kod" Type="varchar" MaxLength="10" />
+          <Property Name="ad" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="il">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kod" Type="int" />
+          <Property Name="ad" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="ilce">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ilkod" Type="int" />
+          <Property Name="kod" Type="int" />
+          <Property Name="ad" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="ilsaglikpersoneli">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Soyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sicil" Type="varchar" MaxLength="50" />
+          <Property Name="Birimi" Type="nvarchar" MaxLength="255" />
+          <Property Name="KayitTarih" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="personel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kartfc" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="kartno" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="kartid" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ad" Type="varchar" MaxLength="60" />
+          <Property Name="soyad" Type="varchar" MaxLength="60" />
+          <Property Name="sicilno" Type="varchar" MaxLength="30" />
+          <Property Name="durum" Type="varchar" MaxLength="10" />
+          <Property Name="KurumId" Type="int" />
+          <Property Name="grupid" Type="int" />
+          <Property Name="bolumid" Type="int" />
+          <Property Name="gorevid" Type="int" />
+          <Property Name="servisid" Type="int" />
+          <Property Name="bolgeid" Type="int" />
+          <Property Name="birimid" Type="int" />
+          <Property Name="subeid" Type="int" />
+          <Property Name="isegiristarihi" Type="date" />
+          <Property Name="resim" Type="varbinary(max)" />
+          <Property Name="ceptel" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="kangrubu" Type="varchar" MaxLength="10" />
+          <Property Name="cinsiyet" Type="varchar" MaxLength="5" />
+          <Property Name="personelturu" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Personeller">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kartid" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="kartno" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ad" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="soyad" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="sicilno" Type="nvarchar" MaxLength="255" />
+          <Property Name="durum" Type="tinyint" />
+          <Property Name="firmaid" Type="nvarchar" MaxLength="255" />
+          <Property Name="grupid" Type="nvarchar" MaxLength="255" />
+          <Property Name="gorevid" Type="nvarchar" MaxLength="255" />
+          <Property Name="servisid" Type="nvarchar" MaxLength="255" />
+          <Property Name="ceptel" Type="nvarchar" MaxLength="255" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="pts_giriscikis">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="personel" Type="int" Nullable="false" />
+          <Property Name="giristarihi" Type="date" Nullable="false" />
+          <Property Name="girissaati" Type="time" Precision="7" />
+          <Property Name="cikistarihi" Type="date" />
+          <Property Name="cikissaati" Type="time" Precision="7" />
+          <Property Name="toplamsure" Type="varchar" MaxLength="100" />
+          <Property Name="islemturu" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Servis">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kod" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="baskanlik" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Terminal">
+          <Key>
+            <PropertyRef Name="TerminalId" />
+          </Key>
+          <Property Name="TerminalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TerminalKod" Type="nvarchar" MaxLength="50" />
+          <Property Name="IpAdres" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Port" Type="int" Nullable="false" />
+          <Property Name="Aktifmi" Type="tinyint" Nullable="false" />
+          <Property Name="TerminalNo" Type="int" />
+          <Property Name="Serial" Type="nvarchar" MaxLength="50" />
+          <Property Name="Konumu" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestGirisCikis">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kullanici" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="WorkCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="int" />
+          <Property Name="GirisSaat" Type="time" Precision="7" />
+          <Property Name="CikisSaat" Type="time" Precision="7" />
+        </EntityType>
+        <Association Name="FK_pts_giriscikis_pts_giriscikis">
+          <End Role="pts_giriscikis" Type="Self.pts_giriscikis" Multiplicity="1" />
+          <End Role="pts_giriscikis1" Type="Self.pts_giriscikis" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="pts_giriscikis">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pts_giriscikis1">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pts_giriscikis_pts_giriscikis1">
+          <End Role="pts_giriscikis" Type="Self.pts_giriscikis" Multiplicity="1" />
+          <End Role="pts_giriscikis1" Type="Self.pts_giriscikis" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="pts_giriscikis">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pts_giriscikis1">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataModelStoreContainer">
+          <EntitySet Name="birim" EntityType="Self.birim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="il" EntityType="Self.il" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ilce" EntityType="Self.ilce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ilsaglikpersoneli" EntityType="Self.ilsaglikpersoneli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personel" EntityType="Self.personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personeller" EntityType="Self.Personeller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pts_giriscikis" EntityType="Self.pts_giriscikis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servis" EntityType="Self.Servis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Terminal" EntityType="Self.Terminal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestGirisCikis" EntityType="Self.TestGirisCikis" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_pts_giriscikis_pts_giriscikis" Association="Self.FK_pts_giriscikis_pts_giriscikis">
+            <End Role="pts_giriscikis" EntitySet="pts_giriscikis" />
+            <End Role="pts_giriscikis1" EntitySet="pts_giriscikis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pts_giriscikis_pts_giriscikis1" Association="Self.FK_pts_giriscikis_pts_giriscikis1">
+            <End Role="pts_giriscikis" EntitySet="pts_giriscikis" />
+            <End Role="pts_giriscikis1" EntitySet="pts_giriscikis" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DataContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="birim" EntityType="DataModel.birim" />
+          <EntitySet Name="il" EntityType="DataModel.il" />
+          <EntitySet Name="ilce" EntityType="DataModel.ilce" />
+          <EntitySet Name="ilsaglikpersoneli" EntityType="DataModel.ilsaglikpersoneli" />
+          <EntitySet Name="Personeller" EntityType="DataModel.Personeller" />
+          <EntitySet Name="TestGirisCikis" EntityType="DataModel.TestGirisCikis" />
+          <EntitySet Name="Servis" EntityType="DataModel.Servis" />
+          <EntitySet Name="Terminal" EntityType="DataModel.Terminal" />
+          <EntitySet Name="pts_giriscikis" EntityType="DataModel.pts_giriscikis" />
+          <EntitySet Name="personel" EntityType="DataModel.personel" />
+          </EntityContainer>
+        <EntityType Name="birim">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kod" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ad" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="il">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kod" Type="Int32" />
+          <Property Name="ad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ilce">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ilkod" Type="Int32" />
+          <Property Name="kod" Type="Int32" />
+          <Property Name="ad" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ilsaglikpersoneli">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sicil" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Birimi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="KayitTarih" Type="DateTime" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Personeller">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kartid" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="kartno" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ad" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="soyad" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sicilno" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="durum" Type="Byte" />
+          <Property Name="firmaid" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="grupid" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="gorevid" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="servisid" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ceptel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TestGirisCikis">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="WorkCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="GirisSaat" Type="Time" Precision="7" />
+          <Property Name="CikisSaat" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Servis">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="baskanlik" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Terminal">
+          <Key>
+            <PropertyRef Name="TerminalId" />
+          </Key>
+          <Property Name="TerminalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TerminalKod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IpAdres" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Port" Type="Int32" Nullable="false" />
+          <Property Name="Aktifmi" Type="Byte" Nullable="false" />
+          <Property Name="TerminalNo" Type="Int32" />
+          <Property Name="Serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Konumu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="pts_giriscikis">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="personel" Type="Int32" Nullable="false" />
+          <Property Name="giristarihi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="girissaati" Type="Time" Precision="7" />
+          <Property Name="cikistarihi" Type="DateTime" Precision="0" />
+          <Property Name="cikissaati" Type="Time" Precision="7" />
+          <Property Name="toplamsure" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="islemturu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          </EntityType>
+        <EntityType Name="personel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kartfc" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="kartno" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="kartid" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ad" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="soyad" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="sicilno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="durum" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="KurumId" Type="Int32" />
+          <Property Name="grupid" Type="Int32" />
+          <Property Name="bolumid" Type="Int32" />
+          <Property Name="gorevid" Type="Int32" />
+          <Property Name="servisid" Type="Int32" />
+          <Property Name="bolgeid" Type="Int32" />
+          <Property Name="birimid" Type="Int32" />
+          <Property Name="subeid" Type="Int32" />
+          <Property Name="isegiristarihi" Type="DateTime" Precision="0" />
+          <Property Name="resim" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ceptel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="kangrubu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cinsiyet" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="personelturu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataContext">
+          <EntitySetMapping Name="birim">
+            <EntityTypeMapping TypeName="DataModel.birim">
+              <MappingFragment StoreEntitySet="birim">
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="kod" ColumnName="kod" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="il">
+            <EntityTypeMapping TypeName="DataModel.il">
+              <MappingFragment StoreEntitySet="il">
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="kod" ColumnName="kod" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ilce">
+            <EntityTypeMapping TypeName="DataModel.ilce">
+              <MappingFragment StoreEntitySet="ilce">
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="kod" ColumnName="kod" />
+                <ScalarProperty Name="ilkod" ColumnName="ilkod" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ilsaglikpersoneli">
+            <EntityTypeMapping TypeName="DataModel.ilsaglikpersoneli">
+              <MappingFragment StoreEntitySet="ilsaglikpersoneli">
+                <ScalarProperty Name="KayitTarih" ColumnName="KayitTarih" />
+                <ScalarProperty Name="Birimi" ColumnName="Birimi" />
+                <ScalarProperty Name="Sicil" ColumnName="Sicil" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personeller">
+            <EntityTypeMapping TypeName="DataModel.Personeller">
+              <MappingFragment StoreEntitySet="Personeller">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ceptel" ColumnName="ceptel" />
+                <ScalarProperty Name="servisid" ColumnName="servisid" />
+                <ScalarProperty Name="gorevid" ColumnName="gorevid" />
+                <ScalarProperty Name="grupid" ColumnName="grupid" />
+                <ScalarProperty Name="firmaid" ColumnName="firmaid" />
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="sicilno" ColumnName="sicilno" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="kartno" ColumnName="kartno" />
+                <ScalarProperty Name="kartid" ColumnName="kartid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestGirisCikis">
+            <EntityTypeMapping TypeName="DataModel.TestGirisCikis">
+              <MappingFragment StoreEntitySet="TestGirisCikis">
+                <ScalarProperty Name="CikisSaat" ColumnName="CikisSaat" />
+                <ScalarProperty Name="GirisSaat" ColumnName="GirisSaat" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="WorkCode" ColumnName="WorkCode" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Kullanici" ColumnName="Kullanici" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servis">
+            <EntityTypeMapping TypeName="DataModel.Servis">
+              <MappingFragment StoreEntitySet="Servis">
+                <ScalarProperty Name="baskanlik" ColumnName="baskanlik" />
+                <ScalarProperty Name="kod" ColumnName="kod" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Terminal">
+            <EntityTypeMapping TypeName="DataModel.Terminal">
+              <MappingFragment StoreEntitySet="Terminal">
+                <ScalarProperty Name="Konumu" ColumnName="Konumu" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="TerminalNo" ColumnName="TerminalNo" />
+                <ScalarProperty Name="Aktifmi" ColumnName="Aktifmi" />
+                <ScalarProperty Name="Port" ColumnName="Port" />
+                <ScalarProperty Name="IpAdres" ColumnName="IpAdres" />
+                <ScalarProperty Name="TerminalKod" ColumnName="TerminalKod" />
+                <ScalarProperty Name="TerminalId" ColumnName="TerminalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pts_giriscikis">
+            <EntityTypeMapping TypeName="DataModel.pts_giriscikis">
+              <MappingFragment StoreEntitySet="pts_giriscikis">
+                <ScalarProperty Name="islemturu" ColumnName="islemturu" />
+                <ScalarProperty Name="toplamsure" ColumnName="toplamsure" />
+                <ScalarProperty Name="cikissaati" ColumnName="cikissaati" />
+                <ScalarProperty Name="cikistarihi" ColumnName="cikistarihi" />
+                <ScalarProperty Name="girissaati" ColumnName="girissaati" />
+                <ScalarProperty Name="giristarihi" ColumnName="giristarihi" />
+                <ScalarProperty Name="personel" ColumnName="personel" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personel">
+            <EntityTypeMapping TypeName="DataModel.personel">
+              <MappingFragment StoreEntitySet="personel">
+                <ScalarProperty Name="personelturu" ColumnName="personelturu" />
+                <ScalarProperty Name="cinsiyet" ColumnName="cinsiyet" />
+                <ScalarProperty Name="kangrubu" ColumnName="kangrubu" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ceptel" ColumnName="ceptel" />
+                <ScalarProperty Name="resim" ColumnName="resim" />
+                <ScalarProperty Name="isegiristarihi" ColumnName="isegiristarihi" />
+                <ScalarProperty Name="subeid" ColumnName="subeid" />
+                <ScalarProperty Name="birimid" ColumnName="birimid" />
+                <ScalarProperty Name="bolgeid" ColumnName="bolgeid" />
+                <ScalarProperty Name="servisid" ColumnName="servisid" />
+                <ScalarProperty Name="gorevid" ColumnName="gorevid" />
+                <ScalarProperty Name="bolumid" ColumnName="bolumid" />
+                <ScalarProperty Name="grupid" ColumnName="grupid" />
+                <ScalarProperty Name="KurumId" ColumnName="KurumId" />
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="sicilno" ColumnName="sicilno" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="kartid" ColumnName="kartid" />
+                <ScalarProperty Name="kartno" ColumnName="kartno" />
+                <ScalarProperty Name="kartfc" ColumnName="kartfc" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

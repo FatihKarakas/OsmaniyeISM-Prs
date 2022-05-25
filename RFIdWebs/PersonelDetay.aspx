@@ -14,7 +14,44 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-                  
+                 
+                    <asp:Repeater runat="server" ID="Listele" DataSourceID="DB3">
+                        <HeaderTemplate>
+                            <table class="table table-bordered" id="PersonelTablo">
+                                <thead>
+                                    <td>Personel İd</td>
+                                    <td>Adı Soyadı</td>
+                                    <td>Başkanlık</td>
+                                    <td>Tarih</td>
+                                    <td>Giriş Zaman</td>
+                                    <td>Çıkış Zamanı</td>
+                                     <td>Giriş Durumu</td>
+                                     <td>Çıkış Durumu</td>
+                                </thead>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("perid") %></td>
+                                <td><%# Eval("isim") %></td>
+                                <td><%# Eval("baskanlik") %></td>
+                                <td><%# Eval("giristar", "{0: dd/MM/yyyy}") %></td>
+                                <td><%# Eval("girissaat") %></td>
+                                <td><%# Eval("cikissaat") %></td>
+                                <td><%# Eval("GirisDurum") %></td>
+                                <td><%# Eval("CikisDurum") %></td>
+                            </tr>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </table>
+                        </FooterTemplate>
+                    </asp:Repeater>
+
+                    <asp:SqlDataSource ID="DB3" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionStringLocal %>" SelectCommand="KisiselRapor" SelectCommandType="StoredProcedure">
+                        <SelectParameters>
+                            <asp:QueryStringParameter DefaultValue="" Name="Personel" QueryStringField="Kullanici" Type="String" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
+
                 </div>
             </div>
         </div>

@@ -11,6 +11,7 @@ public partial class PersonelEkle : System.Web.UI.Page
     public GenelAyarlar g = new GenelAyarlar();
     protected void Page_Load(object sender, EventArgs e)
     {
+        KartNo.Focus();
 
         if (!IsPostBack)
         {
@@ -132,7 +133,46 @@ public partial class PersonelEkle : System.Web.UI.Page
                 msj.InnerText = "Hata oluştu " + ex.Message.ToString();
                 return;
             }
-           
+            try
+            {
+              //  ListBox hatalar = new ListBox();
+              //  string terminal = "10.80.15.220";
+              //  var baglan = g.sta_ConnectTCP(hatalar, terminal, "4370", "1");
+              //  g.axCZKEM1.EnableDevice(1, false);
+              //  g.axCZKEM1.SetStrCardNumber(KartId.Text);
+              //var sonuc =  g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, Ad.Text, "", 0, true);
+                //int idwErrorCode = 0;
+                //g.axCZKEM1.EnableDevice(1, false);
+                //string Yenikart = Convert.ToInt32(KartId.Text).ToString();
+                //g.axCZKEM1.SetStrCardNumber(Yenikart);//Kart Numrasını buluyoruz
+                //string KartNoYeni = KartNumber.Text.ToString();
+                //string isim = Ad.Text.Trim();
+                //string Pass = null;
+                //if (!g.axCZKEM1.SSR_SetUserInfo(1, KartNoYeni, isim, Pass, 0, true))
+                //{
+
+                //    g.axCZKEM1.GetLastError(ref idwErrorCode);
+                //    HataMsj.Visible = true;
+                //    msj.InnerText="Terminal cihaza gönderim hatası oldu =" + idwErrorCode.ToString();
+                //    g.axCZKEM1.EnableDevice(1, true);
+                //    return;
+                //}
+                //Verileri Günceller
+
+                //g.axCZKEM1.RefreshData(1);//Yenile
+                //g.axCZKEM1.EnableDevice(1, true);
+            }
+            catch (Exception ex)
+            {
+                HataMsj.Visible = true;
+                msj.InnerText = "Hata oluştu " + ex.Message.ToString();
+                return;
+            }
+            finally
+            {
+                g.axCZKEM1.EnableDevice(1, true);
+            }
+
 
         }
         else
@@ -173,7 +213,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                 string terminal = "10.80.15.220";
                 var baglan = g.sta_ConnectTCP(hatalar, terminal, "4370", "1");
                 g.axCZKEM1.EnableDevice(1, false);
-                g.axCZKEM1.SetStrCardNumber(KartNumber.Text);
+                g.axCZKEM1.SetStrCardNumber(KartId.Text);
                 g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, Ad.Text, "", 0, true);
 
 

@@ -2410,6 +2410,8 @@ public class GenelAyarlar
         int idwSecond = 0;
         int idwWorkcode = 0;
         int islem = 0;
+        string Mesaj = "";
+       
         if (axCZKEM1.ReadGeneralLogData(GetMachineNumber()))
         {
             while (axCZKEM1.SSR_GetGeneralLogData(GetMachineNumber(), out sdwEnrollNumber, out idwVerifyMode,
@@ -2426,10 +2428,24 @@ public class GenelAyarlar
                 dr["State"] = idwInOutMode;
                 dr["WorkCode"] = idwWorkcode;
                 dr["GirisSaat"] = new TimeSpan(idwHour, idwMinute, idwSecond);
-               
+                Mesaj += islem + "\t Kullanıcı :" + sdwEnrollNumber + " : \t İşlem Tipi " + idwInOutMode + "\t" + Tarih + "\t" + new TimeSpan(idwHour, idwMinute, idwSecond) + "\n";
+
                 dt_log.Rows.Add(dr);
                 islem++;
             }
+            string LogDosyasi = DateTime.Now.ToShortDateString()+"-Log.txt";
+            string filePath = HttpContext.Current.Server.MapPath("/");
+            var birlestir = filePath + LogDosyasi;
+            if (File.Exists(birlestir))
+            {
+                var par = birlestir.Split('-');
+                birlestir = par[0] + 'x' + par[1];
+
+            }
+            byte[] bytes = Encoding.UTF8.GetBytes(Mesaj);
+            FileStream file1 = new FileStream(birlestir, FileMode.Create, FileAccess.Write);
+            file1.Write(bytes, 0, bytes.Length);
+            file1.Close();
             ret = 1;
             lblOutputInfo.Items.Add(" Toplam " + islem + " kayıt tespit edildi : ");
         }

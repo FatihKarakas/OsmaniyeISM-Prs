@@ -23,7 +23,7 @@
                             <tr>
                                 <td>Başkanlık Seçiniz</td>
                                 <td>
-                                    <asp:DropDownList ID="DropDownList1" runat="server"  DataTextField="baskanlik" DataValueField="id">
+                                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control form-select"  DataTextField="baskanlik" DataValueField="id">
                                     </asp:DropDownList>
                                     <asp:SqlDataSource ID="DB1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionStringLocal %>" SelectCommand="SELECT [id], [baskanlik] FROM [Servis]"></asp:SqlDataSource>
                                 </td>

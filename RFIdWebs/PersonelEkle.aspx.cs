@@ -71,6 +71,10 @@ public partial class PersonelEkle : System.Web.UI.Page
                     KartNumber.Text = Pers.kartno;
                     KartId.Text = Pers.kartid;
                     SicilNo.Text = Pers.sicilno;
+                    if(Pers.kangrubu!= null)
+                    {
+                        KanGrup.SelectedItem.Text = Pers.kangrubu;
+                    }
                     if (Pers.servisid != null)
                     {
                         BaskanlikDrop.SelectedValue = Pers.servisid.ToString();
@@ -151,6 +155,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                 ps.email = "";
                 ps.cinsiyet = "";
                 ps.kartfc = "0";
+                ps.grupid = 14;
 
                 
                 dc.personel.Add(ps);

@@ -11,7 +11,7 @@ public partial class PersonelEkle : System.Web.UI.Page
     public GenelAyarlar g = new GenelAyarlar();
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+
         if (!IsPostBack)
         {
             KartNo.Focus();
@@ -28,7 +28,7 @@ public partial class PersonelEkle : System.Web.UI.Page
         SicilNo.Text = "";
         KanGrup.SelectedIndex = 0;
         BasTarih.Text = "";
-      
+
         if (KartNo.Text != null || KartNo.Text.Count() > 5)
         {
             try
@@ -100,59 +100,102 @@ public partial class PersonelEkle : System.Web.UI.Page
 
     protected void PersEkleBtn_Click(object sender, EventArgs e)
     {
-        if (Ad.Text =="" ||Soyad.Text =="" || KartNumber.Text == "" ||  KartId.Text == "" || SicilNo.Text == "")
+        var KartIDD = KartId.Text;
+        if (Ad.Text == "" || Soyad.Text == "" || KartNumber.Text == "" || KartId.Text == "" || SicilNo.Text == "")
         {
             HataMsj.Visible = true;
             msj.InnerText = "Lütfen Personel bilgilerini doldurunuz";
             return;
         }
-        try
+        var Pers = dc.personel.Where(x => x.kartid == KartIDD).FirstOrDefault();
+        if (Pers != null)
         {
-            personel ps = new personel()
+            try
             {
-                ad = Ad.Text,
-                soyad = Soyad.Text,
-                birimid = Convert.ToInt32(BaskanlikDrop.SelectedValue),
-                sicilno = SicilNo.Text,
-                kartno = KartNumber.Text,
-                kartid = KartId.Text,
-                isegiristarihi = Convert.ToDateTime(BasTarih)
-            };
-            dc.personel.Add(ps);
-            dc.SaveChanges();
-        }
-        catch (Exception ex)
-        {
-            HataMsj.Visible = true;
-            msj.InnerText = "Hata oluştu " + ex.Message.ToString();
-            return;
-        }
-        string sName = "";
-        string sPassword = "";
-        int iPrivilege = 0;
-        string sFPTmpData = "";
-        string sCardnumber = "";
-        int idwFingerIndex = 0;
-        string sdwFingerIndex = "";
-        int iFlag = 0;
-        string sFlag = "";
-        int num = 0;
-        ListBox hatalar = new ListBox();
-         string terminal = "10.80.15.220";
-         var baglan = g.sta_ConnectTCP(hatalar, terminal, "4370", "1");
-        g.axCZKEM1.EnableDevice(1, false);
-        g.axCZKEM1.SetStrCardNumber(KartNumber.Text);
-        if (g.axCZKEM1.SSR_SetUserInfo(1, sEnrollNumber, sName, sPassword, iPrivilege, bEnabled))//upload user information to the device
-        {
-        
-            
-                idwFingerIndex = 0
-                iFlag = 0;
-                axCZKEM1.SetUserTmpExStr(iMachineNumber, sEnrollNumber, idwFingerIndex, iFlag, sFPTmpData);//upload templates information to the device
+                Pers.ad = Ad.Text;
+                Pers.soyad = Soyad.Text;
+                Pers.sicilno = SicilNo.Text;
+                Pers.isegiristarihi = Convert.ToDateTime(BasTarih.Text);
+                Pers.servisid = Convert.ToInt32(BaskanlikDrop.SelectedValue);
+                Pers.kangrubu = KanGrup.SelectedItem.Text;
+                dc.Entry(Pers).State = System.Data.Entity.EntityState.Modified;
+                dc.SaveChanges();
             }
-            num++;
-            prgSta.Value = num % 100;
+            catch (Exception ex)
+            {
+
+                HataMsj.Visible = true;
+                msj.InnerText = "Hata oluştu " + ex.Message.ToString();
+                return;
+            }
+           
+
         }
+        else
+        {
+            try
+            {
+                personel ps = new personel();
+
+                ps.ad = Ad.Text;
+                ps.soyad = Soyad.Text;
+                ps.birimid = Convert.ToInt32(BaskanlikDrop.SelectedValue);
+                ps.sicilno = SicilNo.Text;
+                ps.kartno = KartNumber.Text;
+                ps.kartid = KartId.Text;
+                ps.isegiristarihi = Convert.ToDateTime(BasTarih.Text);
+                ps.durum = "Aktif";
+                ps.ceptel = "";
+                ps.personelturu = "Personel";
+                ps.resim = null;
+                ps.email = "";
+                ps.cinsiyet = "";
+                ps.kartfc = "0";
+
+                
+                dc.personel.Add(ps);
+                dc.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                HataMsj.Visible = true;
+                msj.InnerText = "Hata oluştu " + ex.Message.ToString();
+                return;
+            }
+            try
+            {
+                ListBox hatalar = new ListBox();
+                string terminal = "10.80.15.220";
+                var baglan = g.sta_ConnectTCP(hatalar, terminal, "4370", "1");
+                g.axCZKEM1.EnableDevice(1, false);
+                g.axCZKEM1.SetStrCardNumber(KartNumber.Text);
+                g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, Ad.Text, "", 0, true);
+
+
+            }
+            catch (Exception ex)
+            {
+                HataMsj.Visible = true;
+                msj.InnerText = "Hata oluştu " + ex.Message.ToString();
+                return;
+            }
+            finally
+            {
+                g.axCZKEM1.EnableDevice(1, true);
+            }
+
+        }
+        HataMsj.Visible = true;
+        msj.InnerText = Ad.Text +   " " +Soyad.Text +" için Personel bilgileri başarı ile güncellendi veya kayıt edildi";
+        HataMsj.Attributes.Add("class", "alert alert-success");
+        Ad.Text = "";
+        Soyad.Text = "";
+        KartNumber.Text = "";
+        KartId.Text = "";
+        SicilNo.Text = "";
+        KanGrup.SelectedIndex = 0;
+        BasTarih.Text = "";
+        KartNo.Focus();
 
     }
 }

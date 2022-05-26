@@ -2409,7 +2409,7 @@ public class GenelAyarlar
         int idwMinute = 0;
         int idwSecond = 0;
         int idwWorkcode = 0;
-        int islem = 0;
+        int islem = 1;
         string Mesaj = "";
        
         if (axCZKEM1.ReadGeneralLogData(GetMachineNumber()))
@@ -2433,15 +2433,12 @@ public class GenelAyarlar
                 dt_log.Rows.Add(dr);
                 islem++;
             }
-            string LogDosyasi = DateTime.Now.ToShortDateString()+"-Log.txt";
+            var t = new Random().Next(1, 25);
+            string LogDosyasi = DateTime.Now.ToShortDateString()+"v0"+t.ToString()+"-Log.txt";
             string filePath = HttpContext.Current.Server.MapPath("/");
             var birlestir = filePath + LogDosyasi;
-            if (File.Exists(birlestir))
-            {
-                var par = birlestir.Split('-');
-                birlestir = par[0] + 'x' + par[1];
-
-            }
+          
+           
             byte[] bytes = Encoding.UTF8.GetBytes(Mesaj);
             FileStream file1 = new FileStream(birlestir, FileMode.Create, FileAccess.Write);
             file1.Write(bytes, 0, bytes.Length);

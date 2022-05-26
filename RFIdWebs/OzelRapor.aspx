@@ -72,8 +72,8 @@
                                 <td><%# Eval("giristar", "{0: dd/MM/yyyy}") %></td>
                                 <td><%# Eval("girissaat") %></td>
                                 <td><%# Eval("cikissaat") %></td>
-                                <td><%# Eval("GirisDurum") %></td>
-                                <td><%# Eval("CikisDurum") %></td>
+                                <td class="alert <%# Eval("GirisDurum").ToString() == "Geliş Ok" ? "bg-success text-white" : "bg-danger text-white" %>"><%# Eval("GirisDurum") %></td>
+                                <td class="alert <%# Eval("CikisDurum").ToString() == "Çıkış Ok" ? "bg-success text-white" : "bg-danger text-white" %>"><%# Eval("CikisDurum") %></td>
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>
@@ -98,13 +98,13 @@
             changeMonth: true,
             changeYear: true,
             format: "yyyy/mm/dd",
-            language: "tr"
+            language: "Tr"
         });
          $('#MainContent_BitTarih').datepicker({
             changeMonth: true,
             changeYear: true,
             format: "yyyy/mm/dd",
-            language: "tr"
+            language: "Tr"
         });
     });
 </script>

@@ -2322,11 +2322,11 @@ public class GenelAyarlar
         }
     }
     #endregion
-   
+
     #endregion
     #region PersonalizeMng
- 
-    
+
+
     //public int sta_uploadAdvertisePicture(ListBox lblOutputInfo, string pictureFile, string pictureName)
     //{
     //    if (GetConnectState() == false)
@@ -2390,6 +2390,77 @@ public class GenelAyarlar
     #endregion
     #region DataMng
     #region  AttLogMng
+    //Terminal Log Okuması
+    public int sta_readAttLog(ListBox lblOutputInfo, DataTable dt_log,string Terminal)
+    {
+        if (GetConnectState() == false)
+        {
+            lblOutputInfo.Items.Add("*Önce Terminal bağlantısını kurunuz!");
+            return -1024;
+        }
+        int ret = 0;
+        axCZKEM1.EnableDevice(GetMachineNumber(), false);//disable the device
+        string sdwEnrollNumber = "";
+        int idwVerifyMode = 0;
+        int idwInOutMode = 0;
+        int idwYear = 0;
+        int idwMonth = 0;
+        int idwDay = 0;
+        int idwHour = 0;
+        int idwMinute = 0;
+        int idwSecond = 0;
+        int idwWorkcode = 0;
+        int islem = 1;
+        string Mesaj = "";
+
+        if (axCZKEM1.ReadGeneralLogData(GetMachineNumber()))
+        {
+            while (axCZKEM1.SSR_GetGeneralLogData(GetMachineNumber(), out sdwEnrollNumber, out idwVerifyMode,
+                        out idwInOutMode, out idwYear, out idwMonth, out idwDay, out idwHour, out idwMinute, out idwSecond, ref idwWorkcode))//get records from the memory
+            {
+                var culture = new System.Globalization.CultureInfo("tr-TR");
+                DateTime Tarih = new DateTime(idwYear, idwMonth, idwDay);
+                DataRow dr = dt_log.NewRow();
+                dr["UserID"] = sdwEnrollNumber;
+                dr["Tarih"] = Tarih;   // new DateTime(idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond).ToString();
+                dr["Tarih1"] = new DateTime(idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond).ToString();
+                dr["Gun"] = culture.DateTimeFormat.GetDayName(Tarih.DayOfWeek);
+                dr["Type"] = idwVerifyMode;
+                dr["State"] = idwInOutMode;
+                dr["WorkCode"] = idwWorkcode;
+                dr["GirisSaat"] = new TimeSpan(idwHour, idwMinute, idwSecond);
+                Mesaj += islem + "\tTerminal :\t"+ Terminal +" \t Kullanıcı :" + sdwEnrollNumber + " : \t İşlem Tipi " + idwInOutMode + "\t" + Tarih + "\t" + new TimeSpan(idwHour, idwMinute, idwSecond) + "\n";
+
+                dt_log.Rows.Add(dr);
+                islem++;
+            }
+            var t = new Random().Next(1, 25);
+            string LogDosyasi = DateTime.Now.ToShortDateString() +Terminal+ "v0" + t.ToString() + "-Log.txt";
+            string filePath = HttpContext.Current.Server.MapPath("/");
+            var birlestir = filePath + LogDosyasi;
+            byte[] bytes = Encoding.UTF8.GetBytes(Mesaj);
+            FileStream file1 = new FileStream(birlestir, FileMode.Create, FileAccess.Write);
+            file1.Write(bytes, 0, bytes.Length);
+            file1.Close();
+            ret = 1;
+            lblOutputInfo.Items.Add(" Toplam " + islem + " kayıt tespit edildi : ");
+        }
+        else
+        {
+            axCZKEM1.GetLastError(ref idwErrorCode);
+            ret = idwErrorCode;
+            if (idwErrorCode != 0)
+            {
+                lblOutputInfo.Items.Add("*Log Okuma Hatası Hatakod: : " + idwErrorCode.ToString());
+            }
+            else
+            {
+                lblOutputInfo.Items.Add("Terminal verisi bulunamadı!");
+            }
+        }
+        axCZKEM1.EnableDevice(GetMachineNumber(), true);//enable the device
+        return ret;
+    }
     public int sta_readAttLog(ListBox lblOutputInfo, DataTable dt_log)
     {
         if (GetConnectState() == false)
@@ -2437,8 +2508,6 @@ public class GenelAyarlar
             string LogDosyasi = DateTime.Now.ToShortDateString()+"v0"+t.ToString()+"-Log.txt";
             string filePath = HttpContext.Current.Server.MapPath("/");
             var birlestir = filePath + LogDosyasi;
-          
-           
             byte[] bytes = Encoding.UTF8.GetBytes(Mesaj);
             FileStream file1 = new FileStream(birlestir, FileMode.Create, FileAccess.Write);
             file1.Write(bytes, 0, bytes.Length);
@@ -2513,6 +2582,7 @@ public class GenelAyarlar
     //    axCZKEM1.EnableDevice(GetMachineNumber(), true);//enable the device
     //    return ret;
     //}
+    //terminal log kayıtlarını boşalt
     public int sta_DeleteAttLog(ListBox lblOutputInfo)
     {
         if (GetConnectState() == false)

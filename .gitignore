@@ -259,3 +259,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/RFIdWebs/27.05.202210.80.15.220v07-Log.txt
+/RFIdWebs/27.05.202210.80.15.220v03-Log.txt
+/RFIdWebs/27.05.202210.80.15.220v024-Log.txt
+/RFIdWebs/27.05.202210.80.15.220v018-Log.txt
+/RFIdWebs/27.05.202210.80.15.220v016-Log.txt
+/RFIdWebs/27.05.202210.80.15.220v013-Log.txt

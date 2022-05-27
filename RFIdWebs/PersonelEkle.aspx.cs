@@ -135,12 +135,13 @@ public partial class PersonelEkle : System.Web.UI.Page
             }
             try
             {
-              //  ListBox hatalar = new ListBox();
-              //  string terminal = "10.80.15.220";
-              //  var baglan = g.sta_ConnectTCP(hatalar, terminal, "4370", "1");
-              //  g.axCZKEM1.EnableDevice(1, false);
-              //  g.axCZKEM1.SetStrCardNumber(KartId.Text);
-              //var sonuc =  g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, Ad.Text, "", 0, true);
+                ListBox hatalar = new ListBox();
+                string terminal = "10.80.15.220";
+                var baglan = g.sta_ConnectTCP(hatalar, terminal, "4370", "1");
+                g.axCZKEM1.EnableDevice(1, false);
+               g.axCZKEM1.SetStrCardNumber(KartId.Text);
+                var isim = Ad.Text.Trim() + " " + Soyad.Text.Trim(); 
+              var sonuc =  g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, isim, "", 0, true);
                 //int idwErrorCode = 0;
                 //g.axCZKEM1.EnableDevice(1, false);
                 //string Yenikart = Convert.ToInt32(KartId.Text).ToString();
@@ -159,8 +160,8 @@ public partial class PersonelEkle : System.Web.UI.Page
                 //}
                 //Verileri Günceller
 
-                //g.axCZKEM1.RefreshData(1);//Yenile
-                //g.axCZKEM1.EnableDevice(1, true);
+                g.axCZKEM1.RefreshData(1);//Yenile
+                g.axCZKEM1.EnableDevice(1, true);
             }
             catch (Exception ex)
             {

@@ -37,7 +37,7 @@ public partial class Contact : Page
             dt.Columns.Add("WorkCode");
             dt.Columns.Add("GirisSaat");
             hatalar.Dispose();
-            g.sta_readAttLog(hatalar, dt);
+            g.sta_readAttLog(hatalar, dt,terminal);
             ICollection<TestGirisCikis> tts = new List<TestGirisCikis>();
             foreach (DataRow ds in dt.Rows)
             {

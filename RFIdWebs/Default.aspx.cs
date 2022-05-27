@@ -31,7 +31,7 @@ public partial class _Default : Page
     DataContext context = new DataContext();
     protected void Page_Load(object sender, EventArgs e)
     {
-        var p = context.Personeller.ToList();
+         var p = context.Personeller.ToList();
         ICollection<PersonelBilgi> personels = new List<PersonelBilgi>();
         var pi = context.personel.Where(pe => pe.durum == "Aktif").FirstOrDefault();
         

@@ -73,6 +73,11 @@
                                 <i class="align-middle" data-feather="sliders"></i><span class="align-middle">Hakkında</span>
                             </a>
                         </li>
+                         <li class="sidebar-item <%if (sayfa_oku() == "terminallogsil") { Response.Write("active"); }; %>">
+                            <a class="sidebar-link" href="TerminalLogSil.aspx">
+                                <i class="align-middle" data-feather="sliders"></i><span class="align-middle">Log Kayıtlarını Sil</span>
+                            </a>
+                        </li>
                         
 
                     </ul>

@@ -12,8 +12,6 @@ public partial class Contact : Page
     public GenelAyarlar g = new GenelAyarlar();
     protected void Page_Load(object sender, EventArgs e)
     {
-        ScriptManager.RegisterStartupScript(this.Page, typeof(Page), Guid.NewGuid().ToString(),
-                    "toastr.warning('Uyarı Uyarısı', 'Uyarı')", true);
         HataMsj.Visible = false;
         msj.InnerText = "";
         try

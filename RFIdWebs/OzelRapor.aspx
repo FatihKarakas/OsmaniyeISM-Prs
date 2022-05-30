@@ -23,7 +23,7 @@
                             <tr>
                                 <td>Başkanlık Seçiniz</td>
                                 <td>
-                                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control form-select"  DataTextField="baskanlik" DataValueField="id">
+                                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control form-select" DataTextField="baskanlik" DataValueField="id">
                                     </asp:DropDownList>
                                     <asp:SqlDataSource ID="DB1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionStringLocal %>" SelectCommand="SELECT [id], [baskanlik] FROM [Servis]"></asp:SqlDataSource>
                                 </td>
@@ -31,7 +31,7 @@
                             <tr>
                                 <td>Başlangıç Tarihi</td>
                                 <td>
-                                  <asp:TextBox runat="server" id="BasTarih" name="dDate" class="form-control" autocomplete="off" />
+                                    <asp:TextBox runat="server" ID="BasTarih" name="dDate" class="form-control" autocomplete="off" />
 
 
                                 </td>
@@ -39,75 +39,83 @@
                             <tr>
                                 <td>Bitiş Tarihi</td>
                                 <td>
-                                    <asp:TextBox runat="server" id="BitTarih" name="dDate" class="form-control" autocomplete="off" />
+                                    <asp:TextBox runat="server" ID="BitTarih" name="dDate" class="form-control" autocomplete="off" />
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2"><asp:Button runat="server" ID="RaporGetirBtn" CssClass="btn btn-block btn-lg btn-info" Text="Raporları Getir" OnClick="RaporGetirBtn_Click"/></td>
+                                <td colspan="2">
+                                    <asp:Button runat="server" ID="RaporGetirBtn" CssClass="btn btn-block btn-lg btn-info" Text="Raporları Getir" OnClick="RaporGetirBtn_Click" /></td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                         <asp:Repeater runat="server" ID="Listele">
-                        <HeaderTemplate>
-                            <table class="table table-bordered" id="PersonelTablo">
-                                <thead>
-                                    <td>Personel İd</td>
-                                    <td>Adı Soyadı</td>
-                                    <td>Başkanlık</td>
-                                    <td>Tarih</td>
-                                    <td>Giriş Zaman</td>
-                                    <td>Çıkış Zamanı</td>
-                                     <td>Giriş Durumu</td>
-                                     <td>Çıkış Durumu</td>
-                                </thead>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <tr>
-                                <td><%# Eval("perid") %></td>
-                                <td><%# Eval("isim") %></td>
-                                <td><%# Eval("baskanlik") %></td>
-                                <td><%# Eval("giristar", "{0: dd/MM/yyyy}") %></td>
-                                <td><%# Eval("girissaat") %></td>
-                                <td><%# Eval("cikissaat") %></td>
-                                <td class="alert <%# Eval("GirisDurum").ToString() == "Geliş Ok" ? "bg-success text-white" : "bg-danger text-white" %>"><%# Eval("GirisDurum") %></td>
-                                <td class="alert <%# Eval("CikisDurum").ToString() == "Çıkış Ok" ? "bg-success text-white" : "bg-danger text-white" %>"><%# Eval("CikisDurum") %></td>
-                            </tr>
-                        </ItemTemplate>
-                        <FooterTemplate>
-                            </table>
-                        </FooterTemplate>
-                    </asp:Repeater>
-                         <asp:SqlDataSource ID="DB2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionStringLocal %>">
-                             
-                         </asp:SqlDataSource>
+                        <asp:Repeater runat="server" ID="Listele">
+                            <HeaderTemplate>
+                                <table class="table table-bordered" id="PersonelTablo">
+                                    <thead>
+                                        <td>Personel İd</td>
+                                        <td>Adı Soyadı</td>
+                                        <td>Başkanlık</td>
+                                        <td>Tarih</td>
+                                        <td>Giriş Zaman</td>
+                                        <td>Çıkış Zamanı</td>
+                                        <td>Giriş Durumu</td>
+                                        <td>Çıkış Durumu</td>
+                                    </thead>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <tr>
+                                    <td><%# Eval("perid") %></td>
+                                    <td><%# Eval("isim") %></td>
+                                    <td><%# Eval("baskanlik") %></td>
+                                    <td><%# Eval("giristar", "{0: dd/MM/yyyy}") %></td>
+                                    <td><%# Eval("girissaat") %></td>
+                                    <td><%# Eval("cikissaat") %></td>
+                                    <td class="alert <%# Eval("GirisDurum").ToString() == "Geliş Ok" ? "bg-success text-white" : "bg-danger text-white" %>"><%# Eval("GirisDurum") %></td>
+                                    <td class="alert <%# Eval("CikisDurum").ToString() == "Çıkış Ok" ? "bg-success text-white" : "bg-danger text-white" %>"><%# Eval("CikisDurum") %></td>
+                                </tr>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                </table>
+                            </FooterTemplate>
+                        </asp:Repeater>
+                        <asp:SqlDataSource ID="DB2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionStringLocal %>"></asp:SqlDataSource>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(function () {
-        $('#MainContent_BasTarih').datepicker({
-            changeMonth: true,
-            changeYear: true,
-            format: "yyyy/mm/dd",
-            language: "Tr"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            $('#MainContent_BasTarih').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                format: "yyyy/mm/dd",
+                language: "tr",
+                monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
+                firstDay: 1,
+
+            });
+            $('#MainContent_BitTarih').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                format: "yyyy/mm/dd",
+                language: "Tr",
+                monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
+                firstDay: 1
+
+            });
         });
-         $('#MainContent_BitTarih').datepicker({
-            changeMonth: true,
-            changeYear: true,
-            format: "yyyy/mm/dd",
-            language: "Tr"
-        });
-    });
-</script>
+    </script>
 
 </asp:Content>
 

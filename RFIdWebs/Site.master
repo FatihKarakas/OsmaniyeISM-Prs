@@ -63,6 +63,11 @@
                                 <i class="align-middle" data-feather="log-in"></i><span class="align-middle">Özel Raporlar</span>
                             </a>
                         </li>
+                             <li class="sidebar-item <%if (sayfa_oku() == "kartbasmayanlar") { Response.Write("active"); }; %>">
+                            <a class="sidebar-link" href="KartBasmayanlar.aspx">
+                                <i class="align-middle" data-feather="log-in"></i><span class="align-middle">Kart Basmayanlar Rapor</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item <%if (sayfa_oku() == "personelekle") { Response.Write("active"); }; %>">
                             <a class="sidebar-link" href="PersonelEkle.aspx">
                                 <i class="align-middle" data-feather="user-plus"></i><span class="align-middle">Yeni Personel</span>

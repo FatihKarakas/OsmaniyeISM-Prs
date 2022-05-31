@@ -10,6 +10,16 @@ public partial class Contact : Page
     public DataTable dt = new DataTable();
     public DataContext dc = new DataContext();
     public GenelAyarlar g = new GenelAyarlar();
+    ListBox l = new ListBox();
+    public string sFirmver = "";
+    public string sMac = "";
+    public string sPlatform = "";
+    public string sSN = "";
+    public string sProductTime = "";
+    public string sDeviceName = "";
+    public int iFPAlg = 0;
+    public int iFaceAlg = 0;
+    public string sProducter = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         HataMsj.Visible = false;
@@ -27,6 +37,16 @@ public partial class Contact : Page
                 BaglantiKur.Enabled = Visible;
             }
             var baglan = g.sta_ConnectTCP(hatalar, terminal, "4370", "1");
+            g.bIsConnected = baglan == 1 ? true : false;
+            if (getDeviceInfo() == 1)
+            {
+                CihazBilgi.Text = sDeviceName;
+                Firmware.Text = sFirmver;
+                MacAdres.Text = sMac;
+                SeriNo.Text = sSN;
+                Firma.Text = sProducter;
+                Face.Text = sPlatform;
+            }
             hatalar.CssClass = "table table-bordered";
             dt.Columns.Add("UserID");
             dt.Columns.Add("Type");
@@ -90,6 +110,11 @@ public partial class Contact : Page
 
 
     }
+    protected int getDeviceInfo()
+    {
+
+        return g.sta_GetDeviceInfo(l, out sFirmver, out sMac, out sPlatform, out sSN, out sProductTime, out sDeviceName, out iFPAlg, out iFaceAlg, out sProducter);
+    }
 
 
     protected void VeriAktar_Click(object sender, EventArgs e)
@@ -151,8 +176,10 @@ public partial class Contact : Page
             HataMsj.Visible = true;
             msj.InnerText = "Hata oluştu, hata kodu: " + ht.Message.ToString();
         }
-      
 
 
+        HataMsj.Visible = true;
+        msj.InnerText = "Terminal verileri aktarılmıştır.";
+        HataMsj.Attributes.Add("class", "alert alert-success");
     }
 }

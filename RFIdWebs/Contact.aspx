@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>Personel Listesi</h2>
+                    <h2>Terminal Bilgisi</h2> <span class="bg-info">Personel Giriş Çıkış Log kayıtları</span>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -38,7 +38,28 @@
 
                         </div>
                     </div>
+                    <div class="row">
+                        <table class="table table-bordered table-primary">
+                            <tr>
+                                <td>Cihaz Bilgisi:</td>
+                                 <td><asp:TextBox runat="server" ID="CihazBilgi" CssClass="form-control"></asp:TextBox></td>
+                                 <td>Cihaz FirmWare</td>
+                                   <td><asp:TextBox runat="server" ID="Firmware" CssClass="form-control"></asp:TextBox></td>
+                                 <td>Mac Adresi:</td>
+                                  <td><asp:TextBox runat="server" ID="MacAdres" CssClass="form-control"></asp:TextBox></td>
 
+                            </tr>
+                               <tr>
+                                <td>Cihaz seri No:</td>
+                                 <td><asp:TextBox runat="server" ID="SeriNo" CssClass="form-control"></asp:TextBox></td>
+                                 <td>Üretici Firma: </td>
+                                   <td><asp:TextBox runat="server" ID="Firma" CssClass="form-control"></asp:TextBox></td>
+                                 <td>Yüz Tanıma:</td>
+                                  <td><asp:TextBox runat="server" ID="Face" CssClass="form-control"></asp:TextBox></td>
+
+                            </tr>
+                        </table>
+                    </div>
 
                     <asp:Repeater runat="server" ID="Listele">
                         <HeaderTemplate>

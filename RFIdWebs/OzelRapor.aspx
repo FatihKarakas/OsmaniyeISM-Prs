@@ -89,31 +89,45 @@
     </div>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(function () {
+    <script src="https://unpkg.com/gijgo@1.9.13/js/messages/messages.tr-tr.js" type="text/javascript"></script>
 
-            $('#MainContent_BasTarih').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                format: "yyyy/mm/dd",
-                language: "tr",
-                monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-                dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
-                firstDay: 1,
+    <script>
+        $(function ($) {
+            $.fn.datepicker.dates['tr'] =
+                {
+                    days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
+                    daysShort: ["Pz", "Pzt", "Sal", "Çrş", "Prş", "Cu", "Cts", "Pz"],
+                    daysMin: ["Pz", "Pzt", "Sa", "Çr", "Pr", "Cu", "Ct", "Pz"],
+                    months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                    monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+                    today: "Bugün",
+                    suffix: [],
+                    meridiem: []
+                };
+        });
 
-            });
-            $('#MainContent_BitTarih').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                format: "yyyy/mm/dd",
-                language: "Tr",
-                monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-                dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
-                firstDay: 1
+        $(function ($) {
+            $("#MainContent_BasTarih").datepicker(
+                {
+                    language: "tr",
+                    changeMonth: true,
+                    changeYear: false,
+                    format: "yyyy/mm/dd",
+                    firstDay: 1
 
-            });
+
+                });
+            $("#MainContent_BitTarih").datepicker(
+                {
+                    language: "tr",
+                    changeMonth: true,
+                    changeYear: false,
+                    format: "yyyy/mm/dd",
+                    firstDay: 1
+
+
+                });
         });
     </script>
 

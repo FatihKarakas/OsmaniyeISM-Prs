@@ -9,6 +9,15 @@ public partial class TerminalLogSil : System.Web.UI.Page
 {
     public GenelAyarlar g = new GenelAyarlar();
     ListBox l = new ListBox();
+    public string sFirmver = "";
+    public string sMac = "";
+    public string sPlatform = "";
+    public string sSN = "";
+    public string sProductTime = "";
+    public string sDeviceName = "";
+    public int iFPAlg = 0;
+    public int iFaceAlg = 0;
+    public string sProducter = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         HataMsj.Visible = false;
@@ -108,4 +117,10 @@ public partial class TerminalLogSil : System.Web.UI.Page
         msj.InnerHtml = "Terminal Log bilgisi silindi";
         HataMsj.Attributes.Add("class", "alert alert-success");
     }
-}
+
+    private int getDeviceInfo()
+    {
+        
+     return   g.sta_GetDeviceInfo(l, out sFirmver, out sMac, out sPlatform, out sSN, out sProductTime, out sDeviceName, out iFPAlg, out iFaceAlg, out sProducter);
+    }
+    }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
@@ -12,6 +14,8 @@ public partial class SiteMaster : MasterPage
     private const string AntiXsrfTokenKey = "__AntiXsrfToken";
     private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
     private string _antiXsrfTokenValue;
+    private static Logger _logger = LogManager.GetLogger("personelLogs");
+    GenelAyarlar ga = new GenelAyarlar();
     protected void Page_Init(object sender, EventArgs e)
     {
         // Aşağıdaki kod XSRF saldırılarına karşı korunmanıza yardımcı olur
@@ -61,10 +65,14 @@ public partial class SiteMaster : MasterPage
     }
     protected void Page_Load(object sender, EventArgs e)
     {
+        
+        string Mesaj = ga.IPogren() + " İp adresinden " + sayfa_oku() + " sayfası görüntülenmiştir.";
+        _logger.Info(Mesaj);
         if (!IsPostBack)
         {
             sayfa_oku();
         }
+
     }
     protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,7 @@ public partial class TerminalLogSil : System.Web.UI.Page
 {
     public GenelAyarlar g = new GenelAyarlar();
     ListBox l = new ListBox();
+    private static Logger _logger = LogManager.GetLogger("personelLogs");
     public string sFirmver = "";
     public string sMac = "";
     public string sPlatform = "";
@@ -45,6 +47,8 @@ public partial class TerminalLogSil : System.Web.UI.Page
 
             HataMsj.Visible = true;
             msj.InnerHtml = "Hata oluştu " + ex.Message.ToString();
+            string Mesaj = g.IPogren() + " adresinden Terminal log silme işleminde hata : "  +ex.Message.ToString();
+            _logger.Error(Mesaj);
         }
         finally
         {
@@ -54,6 +58,8 @@ public partial class TerminalLogSil : System.Web.UI.Page
         HataMsj.Visible = true;
         msj.InnerHtml = "Terminal Log bilgisi silindi";
         HataMsj.Attributes.Add("class", "alert alert-success");
+        string Mesaj1 = g.IPogren() + " adresinden Terminal log silme işlemi yapıldı";
+        _logger.Info(Mesaj1);
     }
 
     protected void LablogSil_Click(object sender, EventArgs e)
@@ -75,7 +81,9 @@ public partial class TerminalLogSil : System.Web.UI.Page
 
             HataMsj.Visible = true;
             msj.InnerHtml = "Hata oluştu " + ex.Message.ToString();
-           
+            string Mesaj = g.IPogren() + " adresinden LAB  Terminal log silme işleminde hata : " + ex.Message.ToString();
+            _logger.Error(Mesaj);
+
         }
         finally
         {
@@ -85,6 +93,8 @@ public partial class TerminalLogSil : System.Web.UI.Page
         HataMsj.Visible = true;
         msj.InnerHtml = "Terminal Log bilgisi silindi";
         HataMsj.Attributes.Add("class", "alert alert-success");
+        string Mesaj1 = g.IPogren() + " adresinden Terminal log silme işlemi yapıldı";
+        _logger.Info(Mesaj1);
     }
 
     protected void DgrLogSil_Click(object sender, EventArgs e)
@@ -107,6 +117,8 @@ public partial class TerminalLogSil : System.Web.UI.Page
 
             HataMsj.Visible = true;
             msj.InnerHtml = "Hata oluştu " + ex.Message.ToString();
+            string Mesaj = g.IPogren() + " adresinden Diğer Terminal log silme işleminde hata : " + ex.Message.ToString();
+            _logger.Error(Mesaj);
         }
         finally
         {
@@ -116,6 +128,8 @@ public partial class TerminalLogSil : System.Web.UI.Page
         HataMsj.Visible = true;
         msj.InnerHtml = "Terminal Log bilgisi silindi";
         HataMsj.Attributes.Add("class", "alert alert-success");
+        string Mesaj1 = g.IPogren() + " adresinden Terminal log silme işlemi yapıldı";
+        _logger.Info(Mesaj1);
     }
 
     private int getDeviceInfo()

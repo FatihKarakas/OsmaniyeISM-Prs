@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,7 @@ public partial class PersonelEkle : System.Web.UI.Page
 {
     public DataContext dc = new DataContext();
     public GenelAyarlar g = new GenelAyarlar();
+    private static Logger _logger = LogManager.GetLogger("personelLogs");
     protected void Page_Load(object sender, EventArgs e)
     {
         KartNo.Focus();
@@ -167,6 +169,9 @@ public partial class PersonelEkle : System.Web.UI.Page
             {
                 HataMsj.Visible = true;
                 msj.InnerText = "Hata oluştu " + ex.Message.ToString();
+                string Mesaj = g.IPogren() + " Personel Ekleme  işlemini yaparken hata oluştu " + ex.Message.ToString();
+                _logger.Error(Mesaj);
+             
                 return;
             }
             finally
@@ -200,6 +205,7 @@ public partial class PersonelEkle : System.Web.UI.Page
 
                 
                 dc.personel.Add(ps);
+                _logger.Info<personel>(ps);
                 dc.SaveChanges();
             }
             catch (Exception ex)
@@ -223,6 +229,8 @@ public partial class PersonelEkle : System.Web.UI.Page
             {
                 HataMsj.Visible = true;
                 msj.InnerText = "Hata oluştu " + ex.Message.ToString();
+                string Mesaj = g.IPogren() + " Personel Ekleme  işlemini yaparken hata oluştu " + ex.Message.ToString();
+                _logger.Error(Mesaj);
                 return;
             }
             finally
@@ -242,6 +250,7 @@ public partial class PersonelEkle : System.Web.UI.Page
         KanGrup.SelectedIndex = 0;
         BasTarih.Text = "";
         KartNo.Focus();
-
+        string Mesaj1 = g.IPogren() + " Personel Eklme  işlemini başarı ile tamamladı ";
+        _logger.Info(Mesaj1);
     }
 }

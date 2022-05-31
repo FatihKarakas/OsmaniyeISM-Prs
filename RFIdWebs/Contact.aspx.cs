@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,6 +12,7 @@ public partial class Contact : Page
     public DataContext dc = new DataContext();
     public GenelAyarlar g = new GenelAyarlar();
     ListBox l = new ListBox();
+    private static Logger _logger = LogManager.GetLogger("personelLogs");
     public string sFirmver = "";
     public string sMac = "";
     public string sPlatform = "";
@@ -104,6 +106,8 @@ public partial class Contact : Page
         {
             HataMsj.Visible = true;
             msj.InnerText = "Hata oluştu, hata kodu: " + ht.Message.ToString();
+            string Mesaj = g.IPogren() + " adresinden Terminal log silme işleminde hata : " + ht.Message.ToString();
+            _logger.Error(Mesaj);
 
         }
        
@@ -175,6 +179,9 @@ public partial class Contact : Page
         {
             HataMsj.Visible = true;
             msj.InnerText = "Hata oluştu, hata kodu: " + ht.Message.ToString();
+            string Mesaj = g.IPogren() + " adresinden Terminal log silme işleminde hata : " + ht.Message.ToString();
+            _logger.Error(Mesaj);
+
         }
 
 

@@ -7,12 +7,14 @@ using System.Web.UI.WebControls;
 
 public partial class KartBasmayanlar : System.Web.UI.Page
 {
+
     protected void Page_Load(object sender, EventArgs e)
     {
         Listele.DataSource = null;
         HataMsj.Visible = false;
         Listele.Dispose();
         msj.InnerText = "";
+
         if (!IsPostBack)
         {
             DropDownList1.DataSource = DB1;

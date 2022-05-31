@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,11 +8,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 public partial class PersonelGiris : System.Web.UI.Page
 {
+    private static Logger _logger = LogManager.GetLogger("personelLogs");
     protected void Page_Load(object sender, EventArgs e)
     {
         DataContext dc = new DataContext();
         GenelAyarlar g = new GenelAyarlar();
-        HataMsj.Visible = false;
+        
+    HataMsj.Visible = false;
         msj.InnerText = "";
         //var baglan = g.sta_ConnectTCP(hatalar, "10.80.15.220", "4370", "1");
         try
@@ -33,6 +36,7 @@ public partial class PersonelGiris : System.Web.UI.Page
                 };
                 tts.Add(gr);
 
+
             }
             // dc.TestGirisCikis.AddRange(tts);
             Listele.DataSource = tts;
@@ -42,6 +46,8 @@ public partial class PersonelGiris : System.Web.UI.Page
         {
             HataMsj.Visible = true;
             msj.InnerText = "Hata oluştu, hata kodu: " + ht.Message.ToString();
+            string Mesaj = g.IPogren() + " adresinden  yapılan işlemde Hata oluştu, hata kodu: " + ht.Message.ToString();
+            _logger.Error(Mesaj);
         }
        
     }

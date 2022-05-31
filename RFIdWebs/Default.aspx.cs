@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -29,8 +30,10 @@ public partial class _Default : Page
     public bool bEnabled;
     public ZkemClient objZkeeper;
     DataContext context = new DataContext();
+    private static Logger _logger = LogManager.GetLogger("personelLogs");
     protected void Page_Load(object sender, EventArgs e)
     {
+ 
          var p = context.Personeller.ToList();
         ICollection<PersonelBilgi> personels = new List<PersonelBilgi>();
         var pi = context.personel.Where(pe => pe.durum == "Aktif").FirstOrDefault();
@@ -64,5 +67,6 @@ public partial class _Default : Page
         //axCZKEM1.Disconnect();
         PerList.DataSource = personels;
         PerList.DataBind();
+        _logger.Info("Ana Sayfa Görüntülendi");
     }
 }

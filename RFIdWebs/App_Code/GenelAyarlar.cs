@@ -21,6 +21,23 @@ public class GenelAyarlar
     private static int idwErrorCode = 0;
     private static int iDeviceTpye = 1;
     bool bAddControl = true;        //Get all user's ID
+    #region Ip Adres
+    public string IPogren()
+    {
+
+        string ipString = "";
+        if (string.IsNullOrEmpty(HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"]))
+        {
+            ipString = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+        }
+        else
+        {
+            ipString = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+            .FirstOrDefault();
+        }
+        return ipString;
+    }
+    #endregion
     #region UserBioTypeClass
     private string _biometricType = string.Empty;
     private string _biometricVersion = string.Empty;

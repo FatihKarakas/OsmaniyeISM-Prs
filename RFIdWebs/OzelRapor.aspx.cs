@@ -1,4 +1,5 @@
 ﻿using Juice;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ using System.Web.UI.WebControls;
 
 public partial class OzelRapor : System.Web.UI.Page
 {
+    GenelAyarlar g = new GenelAyarlar();
+    private static Logger _logger = LogManager.GetLogger("personelLogs");
     protected void Page_Load(object sender, EventArgs e)
     {
         Listele.DataSource = null;
@@ -19,6 +22,8 @@ public partial class OzelRapor : System.Web.UI.Page
             DropDownList1.DataSource = DB1;
             DropDownList1.DataBind();
             DropDownList1.Items.Insert(0, new ListItem("Seçiniz", "Seçiniz"));
+            string Mesaj = g.IPogren() + " adresinden özel rapor işlemi tamamlandı: ";
+            _logger.Info(Mesaj);
         }
     }
 

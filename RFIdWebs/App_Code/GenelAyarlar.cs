@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -21,6 +22,7 @@ public class GenelAyarlar
     private static int idwErrorCode = 0;
     private static int iDeviceTpye = 1;
     bool bAddControl = true;        //Get all user's ID
+    private static Logger _logger = LogManager.GetLogger("personelLogs");
     #region Ip Adres
     public string IPogren()
     {
@@ -2456,6 +2458,7 @@ public class GenelAyarlar
             string filePath = HttpContext.Current.Server.MapPath("/");
             var birlestir = filePath + LogDosyasi;
             byte[] bytes = Encoding.UTF8.GetBytes(Mesaj);
+            _logger.Warn("Terminal Log Kayıtları alınıyor\n"+Mesaj);
             FileStream file1 = new FileStream(birlestir, FileMode.Create, FileAccess.Write);
             file1.Write(bytes, 0, bytes.Length);
             file1.Close();

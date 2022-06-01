@@ -65,11 +65,26 @@ public partial class SiteMaster : MasterPage
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+
         string Mesaj = ga.IPogren() + " İp adresinden " + sayfa_oku() + " sayfası görüntülenmiştir.";
         _logger.Info(Mesaj);
         if (!IsPostBack)
         {
+            if (Session["Yonetim"] != null)
+            {
+                string Mesaj1= ga.IPogren() + " İp adresinden kullanıcı girişi olmadan erişim engellendi.";
+                _logger.Error(Mesaj1);
+                if (Session["giris"].ToString() != "ok")
+                {
+                    Response.Redirect("GirisYap");
+
+                    return;
+                }
+            }
+            else
+            {
+                Response.Redirect("girisYap");
+            }
             sayfa_oku();
         }
 

@@ -2455,7 +2455,7 @@ public class GenelAyarlar
             }
             var t = new Random().Next(1, 25);
             string LogDosyasi = DateTime.Now.ToShortDateString() +Terminal+ "v0" + t.ToString() + "-Log.txt";
-            string filePath = HttpContext.Current.Server.MapPath("/");
+            string filePath = HttpContext.Current.Server.MapPath("/logs/LOG/");
             var birlestir = filePath + LogDosyasi;
             byte[] bytes = Encoding.UTF8.GetBytes(Mesaj);
             _logger.Warn("Terminal Log Kayıtları alınıyor\n"+Mesaj);

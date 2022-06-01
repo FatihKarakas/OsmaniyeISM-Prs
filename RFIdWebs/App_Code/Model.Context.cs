@@ -29,4 +29,5 @@ public partial class DataContext : DbContext
     public virtual DbSet<Terminal> Terminal { get; set; }
     public virtual DbSet<pts_giriscikis> pts_giriscikis { get; set; }
     public virtual DbSet<personel> personel { get; set; }
+    public virtual DbSet<Users> Users { get; set; }
 }

@@ -67,6 +67,7 @@ public partial class personel
     public string kangrubu { get; set; }
     public string cinsiyet { get; set; }
     public string personelturu { get; set; }
+    public byte Kontroletabi { get; set; }
 }
 
 public partial class Personeller
@@ -127,4 +128,13 @@ public partial class TestGirisCikis
     public Nullable<int> State { get; set; }
     public Nullable<System.TimeSpan> GirisSaat { get; set; }
     public Nullable<System.TimeSpan> CikisSaat { get; set; }
+}
+
+public partial class Users
+{
+    public int id { get; set; }
+    public string UserName { get; set; }
+    public string Pass { get; set; }
+    public byte IsActive { get; set; }
+    public System.DateTime CreateDate { get; set; }
 }

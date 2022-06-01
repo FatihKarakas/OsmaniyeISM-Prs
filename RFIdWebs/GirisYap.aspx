@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GirisYap.aspx.cs" Inherits="GirisYap" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -10,56 +11,57 @@
     <meta name="keywords" content="Osmaniye, Fatih KARAKAŞ, Personel, admin, dashboard">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
-    <title>Personel Takip Sistemi Giriş Yap</title>
-    <link href="css/app.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Personel Takip Sistemi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="align-items-center bg-light">
     <form runat="server">
-        <main class="d-flex w-100">
-            <div class="container d-flex flex-column">
-                <div class="row vh-100">
-                    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                        <div class="d-table-cell align-middle">
-                            <div class="text-center mt-4">
-                                <h1 class="h2">Osmaniye İl Sağlık Müdürlüğü</h1>
-                                <p class="lead">
-                                    Kullanıcı Giriş Ekranı
-                                </p>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="m-sm-4">
-                                        <div class="mb-3">
-                                            <label class="form-label">Kullanıcı Adı</label>
-                                            <asp:TextBox runat="server" ID="UserName" CssClass="form-control form-control-lg" placeholder="Kullanıcı Adı" required></asp:TextBox>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Password</label>
-                                            <asp:TextBox runat="server" TextMode="Password" ID="Parola" CssClass="form-control form-control-lg" placeholder="Parola" required></asp:TextBox>
-                                            <small>
-                                                <a href="#">Parolamı Unuttum</a>
-                                            </small>
-                                        </div>
-                                        <div>
-                                            <label class="form-check">
-                                                <asp:CheckBox runat="server" ID="hatirla" Checked="true" CssClass="form-check-input"  />
-                                                <span class="form-check-label">Beni Hatırla</span>
-                                            </label>
-                                        </div>
-                                        <div class="text-center mt-3">
-                                            <asp:Button runat="server" ID="giris"  CssClass="btn btn-lg btn-primary" OnClick="giris_Click" Text="Kullanıcı Girişi" />
-                                            <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
-                                        </div>
+        <div class="container-md">
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="HataMsj" runat="server" visible="false">
+                        <label runat="server" id="msj"></label>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row  p-5 d-flex justify-content-center ">
+                <div class="col-6 p5">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h2>Osmaniye İl Sağlık Müdürlüğü</h2>
+                            <h4>Kullanıcı Giriş Ekranı</h4>
+                        </div>
+                        <div class="card-body p5">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <div class="mb-3">
+                                        <label for="UserName" class="form-label">Kullanıcı Adınız :</label>
+                                        <asp:TextBox runat="server" ID="UserName" CssClass="form-control form-control-lg" placeholder="Kullanıcı Adı" required></asp:TextBox>
+
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="Parola" class="form-label">Parolanız</label>
+                                        <asp:TextBox runat="server" TextMode="Password" ID="Parola" CssClass="form-control form-control-lg" placeholder="Parola" required></asp:TextBox>
+
+                                    </div>
+                                    <div class="mb-3 form-check">
+
+                                        <asp:CheckBox runat="server" ID="Hatirla" CssClass="form-check-input" />
+                                        <label class="form-check-label" for="exampleCheck1">Beni Hatırla</label>
+                                    </div>
+                                    <asp:Button runat="server" ID="giris" CssClass="btn btn-lg btn-primary" OnClick="giris_Click" Text="Kullanıcı Girişi" />
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
-        <script src="js/app.js"></script>
+            </div>
     </form>
 </body>
 </html>

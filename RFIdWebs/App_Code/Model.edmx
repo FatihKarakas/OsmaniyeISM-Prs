@@ -68,6 +68,7 @@
           <Property Name="kangrubu" Type="varchar" MaxLength="10" />
           <Property Name="cinsiyet" Type="varchar" MaxLength="5" />
           <Property Name="personelturu" Type="varchar" MaxLength="10" />
+          <Property Name="Kontroletabi" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Personeller">
           <Key>
@@ -134,6 +135,16 @@
           <Property Name="GirisSaat" Type="time" Precision="7" />
           <Property Name="CikisSaat" Type="time" Precision="7" />
         </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="tinyint" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK_pts_giriscikis_pts_giriscikis">
           <End Role="pts_giriscikis" Type="Self.pts_giriscikis" Multiplicity="1" />
           <End Role="pts_giriscikis1" Type="Self.pts_giriscikis" Multiplicity="0..1" />
@@ -169,6 +180,7 @@
           <EntitySet Name="Servis" EntityType="Self.Servis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Terminal" EntityType="Self.Terminal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestGirisCikis" EntityType="Self.TestGirisCikis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_pts_giriscikis_pts_giriscikis" Association="Self.FK_pts_giriscikis_pts_giriscikis">
             <End Role="pts_giriscikis" EntitySet="pts_giriscikis" />
             <End Role="pts_giriscikis1" EntitySet="pts_giriscikis" />
@@ -193,6 +205,7 @@
           <EntitySet Name="Terminal" EntityType="DataModel.Terminal" />
           <EntitySet Name="pts_giriscikis" EntityType="DataModel.pts_giriscikis" />
           <EntitySet Name="personel" EntityType="DataModel.personel" />
+          <EntitySet Name="Users" EntityType="DataModel.Users" />
           </EntityContainer>
         <EntityType Name="birim">
           <Key>
@@ -322,6 +335,17 @@
           <Property Name="kangrubu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="cinsiyet" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="personelturu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Kontroletabi" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Byte" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -442,6 +466,7 @@
           <EntitySetMapping Name="personel">
             <EntityTypeMapping TypeName="DataModel.personel">
               <MappingFragment StoreEntitySet="personel">
+                <ScalarProperty Name="Kontroletabi" ColumnName="Kontroletabi" />
                 <ScalarProperty Name="personelturu" ColumnName="personelturu" />
                 <ScalarProperty Name="cinsiyet" ColumnName="cinsiyet" />
                 <ScalarProperty Name="kangrubu" ColumnName="kangrubu" />
@@ -464,6 +489,17 @@
                 <ScalarProperty Name="kartid" ColumnName="kartid" />
                 <ScalarProperty Name="kartno" ColumnName="kartno" />
                 <ScalarProperty Name="kartfc" ColumnName="kartfc" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DataModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

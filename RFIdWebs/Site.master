@@ -138,7 +138,7 @@
                                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i>Profil</a>
                                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i>Ayarlar</a>
 
-                                    <a class="dropdown-item" href="#">Çıkış yap</a>
+                                    <a class="dropdown-item" href="cikis">Çıkış yap</a>
                                 </div>
                             </li>
                         </ul>

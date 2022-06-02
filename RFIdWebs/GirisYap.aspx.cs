@@ -52,7 +52,10 @@ public partial class GirisYap : System.Web.UI.Page
             else
             {
                 HataMsj.Visible = true;
-                msj.InnerText = "Kullanıcı Bulunmadı";
+                msj.InnerText = "Kullanıcı adı veya parola hatalı";
+                var mesaj = ga.IPogren() + " adresindne kullanıcı girişi yaparken hata oluştu, Kullanıcı adı veya parola hatalı \n ";
+                mesaj += $"Kullanıcı adı { UserName.Text } ve parola { encoded}";
+                _logger.Error(mesaj);
                 return;
             }
         }
@@ -60,6 +63,9 @@ public partial class GirisYap : System.Web.UI.Page
         {
             HataMsj.Visible = true;
             msj.InnerText = "Hata oluştu, hata kodu :" + ex.Message.ToString();
+            var mesaj = ga.IPogren() + " adresindne kullanıcı girişi yaparken hata oluştu, hata " + ex.Message.ToString();
+            mesaj += $"Kullanıcı adı { UserName.Text } ve parola {Parola.Text}";
+            _logger.Error(mesaj);
         }
         
 

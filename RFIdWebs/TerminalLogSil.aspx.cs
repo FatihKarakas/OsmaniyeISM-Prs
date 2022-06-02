@@ -67,7 +67,7 @@ public partial class TerminalLogSil : System.Web.UI.Page
         try
         {
             g.axCZKEM1.Connect_Net("10.80.15.221", 4370);
-            g.axCZKEM1.EnableDevice(1, false);
+           // g.axCZKEM1.EnableDevice(1, false);
             int sonuc = g.sta_DeleteAttLog(l);
             if (sonuc == 0)
             {
@@ -102,7 +102,7 @@ public partial class TerminalLogSil : System.Web.UI.Page
         try
         {
             g.axCZKEM1.Connect_Net("10.80.15.222", 4370);
-            g.axCZKEM1.EnableDevice(1, false);
+           // g.axCZKEM1.EnableDevice(1, false);
             int sonuc = g.sta_DeleteAttLog(l);
             if (sonuc == 0)
             {

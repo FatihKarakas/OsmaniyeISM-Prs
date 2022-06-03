@@ -72,10 +72,11 @@ public partial class SiteMaster : MasterPage
         {
             if (Session["Yonetim"] != null)
             {
-                string Mesaj1= ga.IPogren() + " İp adresinden kullanıcı girişi olmadan erişim engellendi.";
-                _logger.Error(Mesaj1);
+              
                 if (Session["giris"].ToString() != "ok")
                 {
+                    string Mesaj1 = ga.IPogren() + " İp adresinden kullanıcı girişi olmadan erişim engellendi.";
+                    _logger.Error(Mesaj1);
                     Response.Redirect("GirisYap");
 
                     return;

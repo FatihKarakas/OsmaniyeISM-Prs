@@ -148,7 +148,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                     g.axCZKEM1.EnableDevice(Mid, false);
                     g.axCZKEM1.SetStrCardNumber(KartId.Text);
                     var isim = Ad.Text.Trim() + " " + Soyad.Text.Trim();
-                    var sonuc = g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, isim, "", 0, true);
+                    var sonuc = g.axCZKEM1.SSR_SetUserInfo(Mid, KartNumber.Text, isim, "", 0, true);
                     if (sonuc)
                     {
                         string Mesaj = $"{g.IPogren()} adresinden {isim} isimli Personel Ekleme {terminal[i]}  ip adresli terminale işlemi yapıldı ";
@@ -156,6 +156,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                     }
                      g.axCZKEM1.RefreshData(Mid);//Yenile
                     g.axCZKEM1.EnableDevice(Mid, true);
+                    g.bIsConnected = false;
                     g.sta_DisConnect();
                 }
                 //int idwErrorCode = 0;
@@ -236,7 +237,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                     g.axCZKEM1.EnableDevice(Mid, false);
                     g.axCZKEM1.SetStrCardNumber(KartId.Text);
                     var isim = Ad.Text.Trim() + " " + Soyad.Text.Trim();
-                    var sonuc = g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, isim, "", 0, true);
+                    var sonuc = g.axCZKEM1.SSR_SetUserInfo(Mid, KartNumber.Text, isim, "", 0, true);
                     if (sonuc)
                     {
                         string Mesaj = $"{g.IPogren()} adresinden {isim} isimli Personel için {terminal[i]}  ip adresli terminale güncelleme yapıldı ";
@@ -244,6 +245,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                     }
                     g.axCZKEM1.RefreshData(Mid);//Yenile
                     g.axCZKEM1.EnableDevice(Mid, true);
+                    g.bIsConnected = false;
                     g.sta_DisConnect();
                 }
 

@@ -63,7 +63,6 @@ public partial class TerminalLogSil : System.Web.UI.Page
                 if (CihazAktif)
                 {
                     int sonuc = g.sta_DeleteAttLog(l);
-                    g.sta_setEmployees()
                     if (sonuc == 0 || sonuc < 0)
                     {
                         HataMsj.Visible = true;

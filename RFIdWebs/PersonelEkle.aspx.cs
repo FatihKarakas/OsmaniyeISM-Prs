@@ -74,7 +74,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                     KartNumber.Text = Pers.kartno;
                     KartId.Text = Pers.kartid;
                     SicilNo.Text = Pers.sicilno;
-                    if(Pers.kangrubu!= null)
+                    if (Pers.kangrubu != null)
                     {
                         KanGrup.SelectedItem.Text = Pers.kangrubu;
                     }
@@ -138,12 +138,26 @@ public partial class PersonelEkle : System.Web.UI.Page
             try
             {
                 ListBox hatalar = new ListBox();
-                string terminal = "10.80.15.220";
-                var baglan = g.sta_ConnectTCP(hatalar, terminal, "4370", "1");
-                g.axCZKEM1.EnableDevice(1, false);
-               g.axCZKEM1.SetStrCardNumber(KartId.Text);
-                var isim = Ad.Text.Trim() + " " + Soyad.Text.Trim(); 
-              var sonuc =  g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, isim, "", 0, true);
+
+                string[] terminal = { "10.80.15.220", "10.80.15.221", "10.80.15.222" };
+                for (int i = 0; i < terminal.Length; i++)
+                {
+                    int Mid = i + 1;
+                    var TerminalIp = terminal[i];
+                    var baglan = g.sta_ConnectTCP(hatalar,TerminalIp, "4370", Mid.ToString());
+                    g.axCZKEM1.EnableDevice(Mid, false);
+                    g.axCZKEM1.SetStrCardNumber(KartId.Text);
+                    var isim = Ad.Text.Trim() + " " + Soyad.Text.Trim();
+                    var sonuc = g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, isim, "", 0, true);
+                    if (sonuc)
+                    {
+                        string Mesaj = $"{g.IPogren()} adresinden {isim} isimli Personel Ekleme {terminal[i]}  ip adresli terminale işlemi yapıldı ";
+                        _logger.Warn(Mesaj);
+                    }
+                     g.axCZKEM1.RefreshData(Mid);//Yenile
+                    g.axCZKEM1.EnableDevice(Mid, true);
+                    g.sta_DisConnect();
+                }
                 //int idwErrorCode = 0;
                 //g.axCZKEM1.EnableDevice(1, false);
                 //string Yenikart = Convert.ToInt32(KartId.Text).ToString();
@@ -162,8 +176,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                 //}
                 //Verileri Günceller
 
-                g.axCZKEM1.RefreshData(1);//Yenile
-                g.axCZKEM1.EnableDevice(1, true);
+
             }
             catch (Exception ex)
             {
@@ -171,13 +184,10 @@ public partial class PersonelEkle : System.Web.UI.Page
                 msj.InnerText = "Hata oluştu " + ex.Message.ToString();
                 string Mesaj = g.IPogren() + " Personel Ekleme  işlemini yaparken hata oluştu " + ex.Message.ToString();
                 _logger.Error(Mesaj);
-             
+
                 return;
             }
-            finally
-            {
-                g.axCZKEM1.EnableDevice(1, true);
-            }
+           
 
 
         }
@@ -203,7 +213,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                 ps.kartfc = "0";
                 ps.grupid = 14;
 
-                
+
                 dc.personel.Add(ps);
                 _logger.Info<personel>(ps);
                 dc.SaveChanges();
@@ -217,11 +227,25 @@ public partial class PersonelEkle : System.Web.UI.Page
             try
             {
                 ListBox hatalar = new ListBox();
-                string terminal = "10.80.15.220";
-                var baglan = g.sta_ConnectTCP(hatalar, terminal, "4370", "1");
-                g.axCZKEM1.EnableDevice(1, false);
-                g.axCZKEM1.SetStrCardNumber(KartId.Text);
-                g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, Ad.Text, "", 0, true);
+                string[] terminal = { "10.80.15.220", "10.80.15.221", "10.80.15.222" };
+                for (int i = 0; i < terminal.Length; i++)
+                {
+                    int Mid = i + 1;
+                    var TerminalIp = terminal[i];
+                    var baglan = g.sta_ConnectTCP(hatalar, TerminalIp, "4370", Mid.ToString());
+                    g.axCZKEM1.EnableDevice(Mid, false);
+                    g.axCZKEM1.SetStrCardNumber(KartId.Text);
+                    var isim = Ad.Text.Trim() + " " + Soyad.Text.Trim();
+                    var sonuc = g.axCZKEM1.SSR_SetUserInfo(1, KartNumber.Text, isim, "", 0, true);
+                    if (sonuc)
+                    {
+                        string Mesaj = $"{g.IPogren()} adresinden {isim} isimli Personel için {terminal[i]}  ip adresli terminale güncelleme yapıldı ";
+                        _logger.Warn(Mesaj);
+                    }
+                    g.axCZKEM1.RefreshData(Mid);//Yenile
+                    g.axCZKEM1.EnableDevice(Mid, true);
+                    g.sta_DisConnect();
+                }
 
 
             }
@@ -233,14 +257,11 @@ public partial class PersonelEkle : System.Web.UI.Page
                 _logger.Error(Mesaj);
                 return;
             }
-            finally
-            {
-                g.axCZKEM1.EnableDevice(1, true);
-            }
+          
 
         }
         HataMsj.Visible = true;
-        msj.InnerText = Ad.Text +   " " +Soyad.Text +" için Personel bilgileri başarı ile güncellendi veya kayıt edildi";
+        msj.InnerText = Ad.Text + " " + Soyad.Text + " için Personel bilgileri başarı ile güncellendi veya kayıt edildi";
         HataMsj.Attributes.Add("class", "alert alert-success");
         Ad.Text = "";
         Soyad.Text = "";

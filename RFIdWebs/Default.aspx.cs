@@ -67,6 +67,6 @@ public partial class _Default : Page
         //axCZKEM1.Disconnect();
         PerList.DataSource = personels;
         PerList.DataBind();
-        _logger.Info("Ana Sayfa Görüntülendi");
+       
     }
 }

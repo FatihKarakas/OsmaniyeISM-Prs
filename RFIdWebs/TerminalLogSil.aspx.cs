@@ -28,113 +28,89 @@ public partial class TerminalLogSil : System.Web.UI.Page
 
     protected void IsmLogSilBtn_Click(object sender, EventArgs e)
     {
-        try
-        {
-            g.bIsConnected=g.axCZKEM1.Connect_Net("10.80.15.220", 4370);
-          //  g.axCZKEM1.EnableDevice(1, false);
-            int sonuc = g.sta_DeleteAttLog(l);
-            if (sonuc != 1)
-            {
-                HataMsj.Visible = true;
-                msj.InnerHtml = "Hata oluştu " + l.Items[0].ToString();
-                return;
-            }
-            HataMsj.Visible = true;
-            msj.InnerHtml = "Terminal Log bilgisi silindi";
-        }
-        catch (Exception ex)
-        {
+        LogSilme("10.80.15.220", "İl Sağlık Merkez Terminal");
 
-            HataMsj.Visible = true;
-            msj.InnerHtml = "Hata oluştu " + ex.Message.ToString();
-            string Mesaj = g.IPogren() + " adresinden Terminal log silme işleminde hata : "  +ex.Message.ToString();
-            _logger.Error(Mesaj);
-        }
-        finally
-        {
-            g.axCZKEM1.RefreshData(1);//Yenile
-            g.axCZKEM1.EnableDevice(1, true);
-        }
-        HataMsj.Visible = true;
-        msj.InnerHtml = "Terminal Log bilgisi silindi";
-        HataMsj.Attributes.Add("class", "alert alert-success");
-        string Mesaj1 = g.IPogren() + " adresinden Terminal log silme işlemi yapıldı";
-        _logger.Info(Mesaj1);
     }
 
     protected void LablogSil_Click(object sender, EventArgs e)
     {
-        try
-        {
-            g.axCZKEM1.Connect_Net("10.80.15.221", 4370);
-           // g.axCZKEM1.EnableDevice(1, false);
-            int sonuc = g.sta_DeleteAttLog(l);
-            if (sonuc == 0)
-            {
-                HataMsj.Visible = true;
-                msj.InnerHtml = "Hata oluştu " + l.Items[0].ToString();
-                return;
-            }
-        }
-        catch (Exception ex)
-        {
-
-            HataMsj.Visible = true;
-            msj.InnerHtml = "Hata oluştu " + ex.Message.ToString();
-            string Mesaj = g.IPogren() + " adresinden LAB  Terminal log silme işleminde hata : " + ex.Message.ToString();
-            _logger.Error(Mesaj);
-
-        }
-        finally
-        {
-            g.axCZKEM1.RefreshData(1);//Yenile
-            g.axCZKEM1.EnableDevice(1, true);
-        }
-        HataMsj.Visible = true;
-        msj.InnerHtml = "Terminal Log bilgisi silindi";
-        HataMsj.Attributes.Add("class", "alert alert-success");
-        string Mesaj1 = g.IPogren() + " adresinden Terminal log silme işlemi yapıldı";
-        _logger.Info(Mesaj1);
+        LogSilme("10.80.15.221", "Laboratuvar Terminal");
     }
 
     protected void DgrLogSil_Click(object sender, EventArgs e)
     {
+        LogSilme("10.80.15.222", "Diğer Terminal");
+    }
+
+    private int getDeviceInfo()
+    {
+
+        return g.sta_GetDeviceInfo(l, out sFirmver, out sMac, out sPlatform, out sSN, out sProductTime, out sDeviceName, out iFPAlg, out iFaceAlg, out sProducter);
+    }
+
+    public void LogSilme(string Terminal, string Terminalad)
+    {
+        var t = Terminal;
+        var port = 4370;
+
         try
         {
-            g.axCZKEM1.Connect_Net("10.80.15.222", 4370);
-           // g.axCZKEM1.EnableDevice(1, false);
-            int sonuc = g.sta_DeleteAttLog(l);
-            if (sonuc == 0)
+            var Baglan = g.axCZKEM1.Connect_Net(t, port);
+            if (Baglan)
+            {
+                g.bIsConnected = true;
+                var CihazAktif = g.axCZKEM1.EnableDevice(1, false);
+                if (CihazAktif)
+                {
+                    int sonuc = g.sta_DeleteAttLog(l);
+                    g.sta_setEmployees()
+                    if (sonuc == 0 || sonuc < 0)
+                    {
+                        HataMsj.Visible = true;
+                        msj.InnerHtml = $"Hata oluştu  {l.Items[0].ToString()}";
+                        string Mesaj = $"{g.IPogren()} adresinden {Terminalad} log silme işleminde cihaz erişiminde hata :{l.Items[0].ToString()}";
+                        _logger.Error(Mesaj);
+                        return;
+                    }
+                }
+                else
+                {
+                    HataMsj.Visible = true;
+                    msj.InnerHtml = "Cihaz geçici kayıt durudurma yapılamadı";
+                    string Mesaj = $"{g.IPogren()} adresinden {Terminalad} Cihaz geçici kayıt durudurma yapılamadı :{l.Items[0].ToString()}";
+                    _logger.Error(Mesaj);
+                    return; // Cihaz devre dışı bırak geçici
+                }
+            }
+            else
             {
                 HataMsj.Visible = true;
-                msj.InnerHtml = "Hata oluştu " + l.Items[0].ToString();
-                return;
+                msj.InnerHtml = $"{g.IPogren()} adresinden {Terminalad} Cihaza bağlantı yapılamadı ";
+                string Mesaj = $"{g.IPogren()} adresinden {Terminalad} Cihaza bağlantı yapılamadı ";
+                _logger.Error(Mesaj);
+                return; // Bağlantı Hatası oldu;
             }
 
         }
         catch (Exception ex)
         {
-
             HataMsj.Visible = true;
-            msj.InnerHtml = "Hata oluştu " + ex.Message.ToString();
-            string Mesaj = g.IPogren() + " adresinden Diğer Terminal log silme işleminde hata : " + ex.Message.ToString();
+            msj.InnerHtml = $"{Terminalad} cihazı log silmede hata oluştu, hata : {ex.Message.ToString()}";
+            string Mesaj = $"{g.IPogren()} adresinden {Terminalad} log silme işleminde hata :{ ex.Message.ToString()}";
             _logger.Error(Mesaj);
         }
         finally
         {
             g.axCZKEM1.RefreshData(1);//Yenile
             g.axCZKEM1.EnableDevice(1, true);
+            g.axCZKEM1.Disconnect();
+
         }
+
         HataMsj.Visible = true;
-        msj.InnerHtml = "Terminal Log bilgisi silindi";
+        msj.InnerHtml = $"{Terminalad} Terminal Log bilgisi silindi";
         HataMsj.Attributes.Add("class", "alert alert-success");
-        string Mesaj1 = g.IPogren() + " adresinden Terminal log silme işlemi yapıldı";
+        string Mesaj1 = $"{g.IPogren()} adresinden {Terminalad} Terminal log silme işlemi yapıldı";
         _logger.Info(Mesaj1);
     }
-
-    private int getDeviceInfo()
-    {
-        
-     return   g.sta_GetDeviceInfo(l, out sFirmver, out sMac, out sPlatform, out sSN, out sProductTime, out sDeviceName, out iFPAlg, out iFaceAlg, out sProducter);
-    }
-    }
+}

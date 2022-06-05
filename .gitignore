@@ -270,3 +270,4 @@ __pycache__/
 /RFIdWebs/31.05.202210.80.15.220v04-Log.txt
 /RFIdWebs/31.05.202210.80.15.220v021-Log.txt
 /RFIdWebs/31.05.202210.80.15.220v019-Log.txt
+*.json

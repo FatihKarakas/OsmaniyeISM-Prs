@@ -30,7 +30,7 @@ public partial class Contact : Page
         {
             var terminal = string.IsNullOrEmpty(Request.QueryString["terminal"]) ? "10.80.15.220" : Request.QueryString["terminal"].ToString();
 
-            
+
             if (g.bIsConnected)
             {
                 IpAdresiTerminal.Enabled = true;
@@ -59,7 +59,7 @@ public partial class Contact : Page
             dt.Columns.Add("WorkCode");
             dt.Columns.Add("GirisSaat");
             hatalar.Dispose();
-            g.sta_readAttLog(hatalar, dt,terminal);
+            g.sta_readAttLog(hatalar, dt, terminal);
             ICollection<TestGirisCikis> tts = new List<TestGirisCikis>();
             foreach (DataRow ds in dt.Rows)
             {
@@ -110,7 +110,7 @@ public partial class Contact : Page
             _logger.Error(Mesaj);
 
         }
-       
+
 
 
     }
@@ -123,26 +123,33 @@ public partial class Contact : Page
 
     protected void VeriAktar_Click(object sender, EventArgs e)
     {
+        int hatasay = 0;
+        string hatamesaji = "";
         try
         {
+            
             ICollection<pts_giriscikis> tts = new List<pts_giriscikis>();
             foreach (DataRow data in dt.Rows)
             {
-               
+
                 var UserIdsi = data["UserID"].ToString();
                 var parca = data["GirisSaat"].ToString().Split(':');
                 var GirisSaat = new TimeSpan(Convert.ToInt32(parca[0].ToString()), Convert.ToInt32(parca[1].ToString()), Convert.ToInt32(parca[2].ToString()));
-                var GirisSaatk = new TimeSpan(09,00,10);
+                var GirisSaatk = new TimeSpan(09, 00, 10);
                 var tarihi = Convert.ToDateTime(data["Tarih"].ToString());
-                var ktarihi = new DateTime(2022,05,24);
-                if (tarihi > ktarihi)
+                var ktarihi = DateTime.Now.AddDays(-5);
+                var Kisi = dc.personel.Where(x => x.kartno == UserIdsi).FirstOrDefault();
+                if (Kisi == null)
                 {
-                    var Kisi = dc.personel.Where(x => x.kartno == UserIdsi).FirstOrDefault();
-                    if (Kisi == null)
-                    {
-                        new Exception("Bu kart sahibi personel tablosunda kayıtlı değil Kart no: " + UserIdsi);
-                        return;
-                    }
+                    hatasay++;
+                    hatamesaji += $"{hatasay} - Bu kart sahibi personel tablosunda kayıtlı değil Kart no: { UserIdsi} \n ";
+                    string Mesaj = $" {g.IPogren() } adresinden Terminal log okuma işleminde hata : Bu kart sahibi personel tablosunda kayıtlı değil Kart no{ UserIdsi}";
+                    _logger.Error(Mesaj);
+
+                }
+                else
+                {
+
                     var girisk = dc.pts_giriscikis.Where(x => x.giristarihi == tarihi && x.personel == Kisi.id).FirstOrDefault();
                     if (girisk != null)
                     {
@@ -171,7 +178,7 @@ public partial class Contact : Page
                         dc.SaveChanges();
                     }
                 }
-                
+
 
             }
         }
@@ -181,12 +188,16 @@ public partial class Contact : Page
             msj.InnerText = "Hata oluştu, hata kodu: " + ht.Message.ToString();
             string Mesaj = g.IPogren() + " adresinden Terminal log silme işleminde hata : " + ht.Message.ToString();
             _logger.Error(Mesaj);
-
+            return;
         }
 
 
         HataMsj.Visible = true;
         msj.InnerText = "Terminal verileri aktarılmıştır.";
+        if (hatasay > 0)
+        {
+            msj.InnerText += hatamesaji;
+        }
         HataMsj.Attributes.Add("class", "alert alert-success");
     }
 }

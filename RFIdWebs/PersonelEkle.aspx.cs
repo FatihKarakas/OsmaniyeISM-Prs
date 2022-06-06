@@ -200,7 +200,7 @@ public partial class PersonelEkle : System.Web.UI.Page
 
                 ps.ad = Ad.Text;
                 ps.soyad = Soyad.Text;
-                ps.birimid = Convert.ToInt32(BaskanlikDrop.SelectedValue);
+                ps.servisid = Convert.ToInt32(BaskanlikDrop.SelectedValue);
                 ps.sicilno = SicilNo.Text;
                 ps.kartno = KartNumber.Text;
                 ps.kartid = KartId.Text;

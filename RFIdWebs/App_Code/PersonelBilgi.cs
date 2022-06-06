@@ -10,6 +10,7 @@
     public string TmpData { get; set; }
     public int Privelage { get; set; }
     public string Parola { get; set; }
-    public bool Aktifmi { get; set; }
+    public string Aktifmi { get; set; }
     public string iFlag { get; set; }
+
 }

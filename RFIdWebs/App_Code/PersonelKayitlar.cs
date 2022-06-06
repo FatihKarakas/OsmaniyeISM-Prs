@@ -37,7 +37,6 @@ public class PersonelKayitlar
             fpInfo.TmpData = sTmpData;
             fpInfo.Privelage = iPrivilege;
             fpInfo.Parola = sPassword;
-            fpInfo.Aktifmi = bEnabled;
             fpInfo.iFlag = iFlag.ToString();
             lstFPTemplates.Add(fpInfo);
             //}

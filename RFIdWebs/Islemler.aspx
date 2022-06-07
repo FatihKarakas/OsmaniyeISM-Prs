@@ -22,7 +22,7 @@
                             <tr>
                                 <td>Personel Seçiniz</td>
                                 <td>
-                                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control form-select" DataTextField="isim" DataValueField="id" DataSourceID="DB1">
+                                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control form-select" DataTextField="isim" DataValueField="id" DataSourceID="DB1" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
                                     </asp:DropDownList>
                                     <asp:SqlDataSource ID="DB1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionStringLocal %>" SelectCommand="SELECT id,kartno, CONCAT(ad,' ',soyad) as isim FROM personel order by isim "></asp:SqlDataSource>
                                 </td>

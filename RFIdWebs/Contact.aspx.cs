@@ -137,48 +137,50 @@ public partial class Contact : Page
                 var GirisSaat = new TimeSpan(Convert.ToInt32(parca[0].ToString()), Convert.ToInt32(parca[1].ToString()), Convert.ToInt32(parca[2].ToString()));
                 var GirisSaatk = new TimeSpan(09, 00, 10);
                 var tarihi = Convert.ToDateTime(data["Tarih"].ToString());
-                var ktarihi = DateTime.Now.AddDays(-5);
-                var Kisi = dc.personel.Where(x => x.kartno == UserIdsi).FirstOrDefault();
-                if (Kisi == null)
+                var ktarihi = DateTime.Now.AddDays(-3);
+                if (tarihi > ktarihi)
                 {
-                    hatasay++;
-                    hatamesaji += $"{hatasay} - Bu kart sahibi personel tablosunda kayıtlı değil Kart no: { UserIdsi} \n ";
-                    string Mesaj = $" {g.IPogren() } adresinden Terminal log okuma işleminde hata : Bu kart sahibi personel tablosunda kayıtlı değil Kart no{ UserIdsi}";
-                    _logger.Error(Mesaj);
-
-                }
-                else
-                {
-
-                    var girisk = dc.pts_giriscikis.Where(x => x.giristarihi == tarihi && x.personel == Kisi.id).FirstOrDefault();
-                    if (girisk != null)
+                    var Kisi = dc.personel.Where(x => x.kartno == UserIdsi).FirstOrDefault();
+                    if (Kisi == null)
                     {
-                        var son = (girisk.girissaati == GirisSaat) ? true : false;
-                        if (!son)
-                        {
-                            girisk.cikistarihi = tarihi;
-                            girisk.cikissaati = GirisSaat;
-                            girisk.islemturu = "mesaibitti";
-                            dc.Entry(girisk).State = System.Data.Entity.EntityState.Modified;
-                            dc.SaveChanges();
-                        }
+                        hatasay++;
+                        hatamesaji += $"{hatasay} - Bu kart sahibi personel tablosunda kayıtlı değil Kart no: { UserIdsi} \n ";
+                        string Mesaj = $" {g.IPogren() } adresinden Terminal log okuma işleminde hata : Bu kart sahibi personel tablosunda kayıtlı değil Kart no{ UserIdsi}";
+                        _logger.Error(Mesaj);
+
                     }
                     else
                     {
-                        pts_giriscikis pt = new pts_giriscikis()
-                        {
-                            personel = Kisi.id,
-                            giristarihi = tarihi,
-                            girissaati = GirisSaat,
-                            islemturu = "MesaiBaşladı",
-                            toplamsure = ""
 
-                        };
-                        dc.pts_giriscikis.Add(pt);
-                        dc.SaveChanges();
+                        var girisk = dc.pts_giriscikis.Where(x => x.giristarihi == tarihi && x.personel == Kisi.id).FirstOrDefault();
+                        if (girisk != null)
+                        {
+                            var son = (girisk.girissaati == GirisSaat) ? true : false;
+                            if (!son)
+                            {
+                                girisk.cikistarihi = tarihi;
+                                girisk.cikissaati = GirisSaat;
+                                girisk.islemturu = "mesaibitti";
+                                dc.Entry(girisk).State = System.Data.Entity.EntityState.Modified;
+                                dc.SaveChanges();
+                            }
+                        }
+                        else
+                        {
+                            pts_giriscikis pt = new pts_giriscikis()
+                            {
+                                personel = Kisi.id,
+                                giristarihi = tarihi,
+                                girissaati = GirisSaat,
+                                islemturu = "MesaiBaşladı",
+                                toplamsure = ""
+
+                            };
+                            dc.pts_giriscikis.Add(pt);
+                            dc.SaveChanges();
+                        }
                     }
                 }
-
 
             }
         }

@@ -61,6 +61,7 @@ public partial class Islemler : System.Web.UI.Page
 
     protected void Revize_Click(object sender, EventArgs e)
     {
+        kim = DropDownList1.SelectedItem.ToString();
         var parca = GirisSaat.Text.ToString().Split(':');
         CikisSaat.Text = CikisSaat.Text == string.Empty ? "17:00:00" : CikisSaat.Text;
         var parca1 = CikisSaat.Text.ToString().Split(':');

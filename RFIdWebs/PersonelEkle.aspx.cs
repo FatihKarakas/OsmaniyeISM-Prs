@@ -183,7 +183,7 @@ public partial class PersonelEkle : System.Web.UI.Page
             {
                 HataMsj.Visible = true;
                 msj.InnerText = "Hata oluştu " + ex.Message.ToString();
-                string Mesaj = g.IPogren() + " Personel Ekleme  işlemini yaparken hata oluştu " + ex.Message.ToString();
+                string Mesaj = $"{g.IPogren()} Personel Ekleme  işlemini yaparken hata oluştu { ex.Message.ToString()}";
                 _logger.Error(Mesaj);
 
                 return;
@@ -255,7 +255,7 @@ public partial class PersonelEkle : System.Web.UI.Page
             {
                 HataMsj.Visible = true;
                 msj.InnerText = "Hata oluştu " + ex.Message.ToString();
-                string Mesaj = g.IPogren() + " Personel Ekleme  işlemini yaparken hata oluştu " + ex.Message.ToString();
+                string Mesaj =$"{g.IPogren()} Personel Ekleme  işlemini yaparken hata oluştu {ex.Message.ToString()}";
                 _logger.Error(Mesaj);
                 return;
             }
@@ -273,7 +273,7 @@ public partial class PersonelEkle : System.Web.UI.Page
         KanGrup.SelectedIndex = 0;
         BasTarih.Text = "";
         KartNo.Focus();
-        string Mesaj1 = g.IPogren() + " Personel Eklme  işlemini başarı ile tamamladı ";
+        string Mesaj1 = $"{g.IPogren()} Personel Eklme  işlemini başarı ile tamamladı ";
         _logger.Info(Mesaj1);
     }
 }

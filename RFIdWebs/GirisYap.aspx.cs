@@ -41,11 +41,12 @@ public partial class GirisYap : System.Web.UI.Page
                 {
                     HataMsj.Visible = true;
                     msj.InnerText = "Kullanıcı Hesabı pasif edilmiş durumda";
+                    _logger.Error($"{ga.Ipogren()} adresin pasif kullanıcı girişi engellendi. {UserNames} ");
                     return;
                 }
                 Session["Yonetim"] = say.UserName;
                 Session["giris"] = "ok";
-                string mesaj = ga.IPogren() + " adresinden " + UserNames + " kullanıcısı başarı ile giriş yapılmıştır";
+                string mesaj = $"{ga.IPogren()} adresinden { UserNames } kullanıcısı başarı ile giriş yapılmıştır";
                 _logger.Warn(mesaj);
                 Response.Redirect("default");
             }

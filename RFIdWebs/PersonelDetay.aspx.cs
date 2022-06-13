@@ -47,6 +47,8 @@ public partial class PersonelDetay : System.Web.UI.Page
                     KanGrup.SelectedValue = Veriler.kangrubu == "" ? "Seçiniz" : Veriler.kangrubu;
                     BaskanlikDrop.SelectedIndex = dc.Servis.Where(s => s.id == Veriler.servisid).Select(s => s.id).FirstOrDefault() - 1;
                     BasTarih.Text = string.Format(Veriler.isegiristarihi.ToString(),"{0:dd MMMM yyyy}");
+                    KontroleTabi.Checked = Veriler.Kontroletabi == 1 ? true: false;
+                    Engellilik.Checked = Veriler.Disability == 1 ? true : false;
                 }
             }
 
@@ -63,6 +65,8 @@ public partial class PersonelDetay : System.Web.UI.Page
             Pers.ad = Ad.Text;
             Pers.soyad = Soyad.Text;
             Pers.sicilno = SicilNo.Text;
+            if (Engellilik.Checked) Pers.Disability = 1; else Pers.Disability=0;
+            if (!KontroleTabi.Checked) Pers.Kontroletabi = 0; else Pers.Kontroletabi=1 ;
             //Pers.isegiristarihi = Convert.ToDateTime(BasTarih.Text);
             Pers.servisid = Convert.ToInt32(BaskanlikDrop.SelectedValue);
             Pers.kangrubu = KanGrup.SelectedItem.Text;

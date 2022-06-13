@@ -69,6 +69,7 @@
           <Property Name="cinsiyet" Type="varchar" MaxLength="5" />
           <Property Name="personelturu" Type="varchar" MaxLength="10" />
           <Property Name="Kontroletabi" Type="tinyint" Nullable="false" />
+          <Property Name="Disability" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Personeller">
           <Key>
@@ -87,6 +88,7 @@
           <Property Name="servisid" Type="nvarchar" MaxLength="255" />
           <Property Name="ceptel" Type="nvarchar" MaxLength="255" />
           <Property Name="email" Type="nvarchar" MaxLength="255" />
+          <Property Name="Disability" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="pts_giriscikis">
           <Key>
@@ -260,6 +262,7 @@
           <Property Name="servisid" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ceptel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Disability" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="TestGirisCikis">
           <Key>
@@ -336,6 +339,7 @@
           <Property Name="cinsiyet" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="personelturu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Kontroletabi" Type="Byte" Nullable="false" />
+          <Property Name="Disability" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -396,6 +400,7 @@
           <EntitySetMapping Name="Personeller">
             <EntityTypeMapping TypeName="DataModel.Personeller">
               <MappingFragment StoreEntitySet="Personeller">
+                <ScalarProperty Name="Disability" ColumnName="Disability" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="ceptel" ColumnName="ceptel" />
                 <ScalarProperty Name="servisid" ColumnName="servisid" />
@@ -466,6 +471,7 @@
           <EntitySetMapping Name="personel">
             <EntityTypeMapping TypeName="DataModel.personel">
               <MappingFragment StoreEntitySet="personel">
+                <ScalarProperty Name="Disability" ColumnName="Disability" />
                 <ScalarProperty Name="Kontroletabi" ColumnName="Kontroletabi" />
                 <ScalarProperty Name="personelturu" ColumnName="personelturu" />
                 <ScalarProperty Name="cinsiyet" ColumnName="cinsiyet" />

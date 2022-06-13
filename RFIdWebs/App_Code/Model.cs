@@ -68,6 +68,7 @@ public partial class personel
     public string cinsiyet { get; set; }
     public string personelturu { get; set; }
     public byte Kontroletabi { get; set; }
+    public byte Disability { get; set; }
 }
 
 public partial class Personeller
@@ -85,6 +86,7 @@ public partial class Personeller
     public string servisid { get; set; }
     public string ceptel { get; set; }
     public string email { get; set; }
+    public byte Disability { get; set; }
 }
 
 public partial class pts_giriscikis

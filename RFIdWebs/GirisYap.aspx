@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="mb-3 form-check">
 
-                                        <asp:CheckBox runat="server" ID="Hatirla" CssClass="form-check-input" />
+                                        <input type="checkbox" runat="server" ID="Hatirla" Class="form-check-input" >
                                         <label class="form-check-label" for="exampleCheck1">Beni Hatırla</label>
                                     </div>
                                     <asp:Button runat="server" ID="giris" CssClass="btn btn-lg btn-primary" OnClick="giris_Click" Text="Kullanıcı Girişi" />

@@ -41,7 +41,7 @@ public partial class GirisYap : System.Web.UI.Page
                 {
                     HataMsj.Visible = true;
                     msj.InnerText = "Kullanıcı Hesabı pasif edilmiş durumda";
-                    _logger.Error($"{ga.Ipogren()} adresin pasif kullanıcı girişi engellendi. {UserNames} ");
+                    _logger.Error($"{ga.IPogren()} adresin pasif kullanıcı girişi engellendi. {UserNames} ");
                     return;
                 }
                 Session["Yonetim"] = say.UserName;

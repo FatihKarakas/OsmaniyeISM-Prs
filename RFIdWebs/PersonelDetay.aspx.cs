@@ -19,7 +19,7 @@ public partial class PersonelDetay : System.Web.UI.Page
             {
                 HataMsj.Visible = true;
                 msj.InnerText = "Bu sayfaya doğrudan erişmezsiniz";
-                _logger.Error($"{g.IPogren()} adreinden kullancı deteyı hatası {msj.InnerText}");
+                _logger.Error($"{g.IPogren()} adresinden kullancı detayı hatası {msj.InnerText}");
                 personelislem.Visible = false;
                 return;
             }
@@ -44,10 +44,10 @@ public partial class PersonelDetay : System.Web.UI.Page
                     Ad.Text = Veriler.ad;
                     Soyad.Text = Veriler.soyad;
                     SicilNo.Text = Veriler.sicilno;
-                    KanGrup.SelectedValue = Veriler.kangrubu == "" ? "Seçiniz" : Veriler.kangrubu;
+                    KanGrup.SelectedItem.Text = Veriler.kangrubu == "" ? "Seçiniz" : Veriler.kangrubu;
                     BaskanlikDrop.SelectedIndex = dc.Servis.Where(s => s.id == Veriler.servisid).Select(s => s.id).FirstOrDefault() - 1;
-                    BasTarih.Text = string.Format(Veriler.isegiristarihi.ToString(),"{0:dd MMMM yyyy}");
-                    KontroleTabi.Checked = Veriler.Kontroletabi == 1 ? true: false;
+                    BasTarih.Text = string.Format(Veriler.isegiristarihi.ToString(), "{0:dd MMMM yyyy}");
+                    KontroleTabi.Checked = Veriler.Kontroletabi == 1 ? true : false;
                     Engellilik.Checked = Veriler.Disability == 1 ? true : false;
                 }
             }
@@ -58,41 +58,53 @@ public partial class PersonelDetay : System.Web.UI.Page
 
     protected void PersEkleBtn_Click(object sender, EventArgs e)
     {
+
         try
         {
             var Pers = dc.personel.Where(x => x.kartno == KartNumber.Text).FirstOrDefault();
+            var Pers2 = dc.Personeller.Where(x => x.kartno == KartNumber.Text).FirstOrDefault();
+            Pers2.kartid = KartId.Text;
+            Pers2.ad = Ad.Text;
+            Pers2.soyad = Soyad.Text;
+            Pers2.sicilno = SicilNo.Text;
             Pers.kartid = KartId.Text;
             Pers.ad = Ad.Text;
             Pers.soyad = Soyad.Text;
             Pers.sicilno = SicilNo.Text;
-            if (Engellilik.Checked) Pers.Disability = 1; else Pers.Disability=0;
-            if (!KontroleTabi.Checked) Pers.Kontroletabi = 0; else Pers.Kontroletabi=1 ;
+            if (Engellilik.Checked) Pers.Disability = 1; else Pers.Disability = 0;
+            if (Engellilik.Checked) Pers2.Disability = 1; else Pers2.Disability = 0;
+            if (!KontroleTabi.Checked) Pers.Kontroletabi = 0; else Pers.Kontroletabi = 1;
             //Pers.isegiristarihi = Convert.ToDateTime(BasTarih.Text);
             Pers.servisid = Convert.ToInt32(BaskanlikDrop.SelectedValue);
+            Pers2.servisid = BaskanlikDrop.SelectedValue;
             Pers.kangrubu = KanGrup.SelectedItem.Text;
             dc.Entry(Pers).State = System.Data.Entity.EntityState.Modified;
+            dc.Entry(Pers2).State = System.Data.Entity.EntityState.Modified;
             dc.SaveChanges();
             ListBox hatalar = new ListBox();
 
             string[] terminal = { "10.80.15.220", "10.80.15.221", "10.80.15.222" };
-            for (int i = 0; i < terminal.Length; i++)
+            if (AktarimYap.Checked)
             {
-                int Mid = i + 1;
-                var TerminalIp = terminal[i];
-                var baglan = g.sta_ConnectTCP(hatalar, TerminalIp, "4370", Mid.ToString());
-                g.axCZKEM1.EnableDevice(Mid, false);
-                g.axCZKEM1.SetStrCardNumber(KartId.Text);
-                var isim = Ad.Text.Trim() + " " + Soyad.Text.Trim();
-                var sonuc = g.axCZKEM1.SSR_SetUserInfo(Mid, KartNumber.Text, isim, "", 0, true);
-                if (sonuc)
+                for (int i = 0; i < terminal.Length; i++)
                 {
-                    string Mesaj = $"{g.IPogren()} adresinden {isim} isimli Personel günceleme işelemi {terminal[i]}  ip adresli terminale yapıldı ";
-                    _logger.Warn(Mesaj);
+                    int Mid = i + 1;
+                    var TerminalIp = terminal[i];
+                    var baglan = g.sta_ConnectTCP(hatalar, TerminalIp, "4370", Mid.ToString());
+                    g.axCZKEM1.EnableDevice(Mid, false);
+                    g.axCZKEM1.SetStrCardNumber(KartId.Text);
+                    var isim = Ad.Text.Trim() + " " + Soyad.Text.Trim();
+                    var sonuc = g.axCZKEM1.SSR_SetUserInfo(Mid, KartNumber.Text, isim, "", 0, true);
+                    if (sonuc)
+                    {
+                        string Mesaj = $"{g.IPogren()} adresinden {isim} isimli Personel günceleme işelemi {terminal[i]}  ip adresli terminale yapıldı ";
+                        _logger.Warn(Mesaj);
+                    }
+                    g.axCZKEM1.RefreshData(Mid);//Yenile
+                    g.axCZKEM1.EnableDevice(Mid, true);
+                    g.bIsConnected = false;
+                    g.sta_DisConnect();
                 }
-                g.axCZKEM1.RefreshData(Mid);//Yenile
-                g.axCZKEM1.EnableDevice(Mid, true);
-                g.bIsConnected = false;
-                g.sta_DisConnect();
             }
         }
         catch (Exception ex)

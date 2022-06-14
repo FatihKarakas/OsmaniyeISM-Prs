@@ -8,7 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
 /// <summary>
-/// ZKTeco Cihaza Bağlantı ve Kontrol Bilgileri
+/// ZKTeco Cihaza Bağlantı ve Kontrol Bilgileri 
 /// Fatih KARAKAŞ Osmaniye /2022
 /// </summary>
 public class GenelAyarlar
@@ -17,13 +17,16 @@ public class GenelAyarlar
     public List<Personel> employeeList = new List<Personel>();
     public List<BioTemplate> bioTemplateList = new List<BioTemplate>();
     public List<string> biometricTypes = new List<string>();
-    public   bool bIsConnected = false;//the boolean value identifies whether the device is connected
+    public   bool bIsConnected = false;//Bağlantı Açık mı?
     private static int iMachineNumber = 1;
     private static int idwErrorCode = 0;
     private static int iDeviceTpye = 1;
-    bool bAddControl = true;        //Get all user's ID
+    bool bAddControl = true;        
     private static Logger _logger = LogManager.GetLogger("personelLogs");
-    #region Ip Adres
+
+
+    #region Ip Adres 
+   
     public string IPogren()
     {
 

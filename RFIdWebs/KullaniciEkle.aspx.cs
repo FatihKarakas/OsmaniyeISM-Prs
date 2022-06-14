@@ -57,15 +57,13 @@ public partial class KullaniciEkle : System.Web.UI.Page
             
         {
             int sayi = dc.Users.Select(x => x.id).Max() + 1;
-            DateTime d = new DateTime(2022,06,01);
-            
+                        
             Users u = new Users
             {
                 id = sayi,
                 UserName = UserNames,
                 Pass = encoded,
-                IsActive = 1,
-                CreateDate = d
+                IsActive = 1
             };
             dc.Users.Add(u);
             dc.SaveChanges();

@@ -22,7 +22,7 @@
                         <div class="col-12">
                             <table class="table table-light">
                                 <tr>
-                                    <td colspan="9">
+                                    <td colspan="8">
                                         <h3 class="text-center">Personel Bilgileri</h3>
                                     </td>
                                 </tr>
@@ -39,13 +39,8 @@
                                     <td>Soyadı:</td>
                                     <td>
                                         <asp:TextBox runat="server" ID="Soyad" CssClass="form-control"></asp:TextBox></td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="Engellilik" runat="server">
-                                            <label class="form-check-label" for="Engellilik">
-                                                Engelli mi?
-                                            </label>
-                                        </div>
+
+
                                 </tr>
                                 <tr>
                                     <td>Sicil No:</td>
@@ -74,6 +69,22 @@
 
                                         </asp:DropDownList>
                                     </td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td>Engelli Durumu
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="Engellilik" runat="server">
+                                            <label class="form-check-label" for="Engellilik">
+                                                Engelli mi?
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Kontrol Durumu:
+                                    </td>
                                     <td>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="KontroleTabi" runat="server">
@@ -82,9 +93,21 @@
                                             </label>
                                         </div>
                                     </td>
+                                    <td colspan="2">
+                                        Terminallere Aktarım:
+                                    </td>
+                                    <td colspan="2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" checked  id="AktarimYap" runat="server" name="AktarimYap">
+                                            <label class="form-check-label" for="TerminalAktarim">
+                                               Veriler Terminallere aktarılsın
+                                            </label>
+                                        </div>
+                                    </td>
+                                   
                                 </tr>
                                 <tr>
-                                    <td colspan="9">
+                                    <td colspan="8">
                                         <asp:Button runat="server" ID="PersEkleBtn" Text=" Personel Ekle / Güncelle" CssClass="btn btn-block btn-success" OnClick="PersEkleBtn_Click" />
                                     </td>
                                 </tr>

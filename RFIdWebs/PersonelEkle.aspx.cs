@@ -115,10 +115,19 @@ public partial class PersonelEkle : System.Web.UI.Page
             return;
         }
         var Pers = dc.personel.Where(x => x.kartid == KartIDD).FirstOrDefault();
+        var Pers2 = dc.Personeller.Where(x => x.kartid == KartIDD).FirstOrDefault();
         if (Pers != null)
         {
             try
             {
+                if(Pers2 != null)
+                {
+                    Pers2.ad = Ad.Text;
+                    Pers2.soyad = Soyad.Text;
+                    Pers2.sicilno = SicilNo.Text;
+                    Pers2.servisid = BaskanlikDrop.SelectedValue;
+                    dc.Entry(Pers2).State = System.Data.Entity.EntityState.Modified;
+                }
                 Pers.ad = Ad.Text;
                 Pers.soyad = Soyad.Text;
                 Pers.sicilno = SicilNo.Text;
@@ -197,6 +206,7 @@ public partial class PersonelEkle : System.Web.UI.Page
             try
             {
                 personel ps = new personel();
+                Personeller ps2 = new Personeller();
 
                 ps.ad = Ad.Text;
                 ps.soyad = Soyad.Text;
@@ -215,7 +225,16 @@ public partial class PersonelEkle : System.Web.UI.Page
                 ps.grupid = 14;
 
 
-                dc.personel.Add(ps);
+                ps2.ad = Ad.Text;
+                ps2.soyad = Soyad.Text;
+                ps2.servisid = BaskanlikDrop.SelectedValue;
+                ps2.sicilno = SicilNo.Text;
+                ps2.kartno = KartNumber.Text;
+                ps2.kartid = KartId.Text;
+                ps2.durum = 1;
+                ps2.grupid = "14";
+                dc.Personeller.Add(ps2);
+                 dc.personel.Add(ps);
                 _logger.Info<personel>(ps);
                 dc.SaveChanges();
             }

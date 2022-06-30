@@ -223,6 +223,7 @@ public partial class PersonelEkle : System.Web.UI.Page
                 ps.cinsiyet = "";
                 ps.kartfc = "0";
                 ps.grupid = 14;
+                ps.Kontroletabi = 1;
 
 
                 ps2.ad = Ad.Text;
